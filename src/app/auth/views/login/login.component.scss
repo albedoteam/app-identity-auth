@@ -1,0 +1,25 @@
+@use "src/theme/variables" as var;
+
+.login {
+    margin: 15px;
+    display: flex;
+    flex-flow: column;
+    padding: 0;
+
+    width: 95%;
+
+    @media screen and (min-width: var.$s-size) {
+        width: 50%;
+        margin: auto;
+    }
+
+    .login-bar {
+        top: 0;
+        left: 0;
+        justify-content: center;
+    }
+
+    .login-content {
+        width: 100%;
+    }
+}

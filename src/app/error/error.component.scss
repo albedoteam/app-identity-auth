@@ -1,0 +1,27 @@
+@use "/src/theme/variables" as var;
+
+.error {
+    margin: 15px;
+    display: flex;
+    flex-flow: column;
+    padding: 0;
+
+    width: 95%;
+
+    @media screen and (min-width: var.$s-size) {
+        width: 50%;
+        margin: auto;
+    }
+
+    .error-bar {
+        top: 0;
+        left: 0;
+        justify-content: center;
+    }
+
+    .error-content {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+}
