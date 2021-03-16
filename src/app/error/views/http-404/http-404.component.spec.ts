@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { Http-404Component } from './http-404.component';
+import { Http404Component } from './http-404.component';
 
-describe('Http-404Component', () => {
-  let component: Http-404Component;
-  let fixture: ComponentFixture<Http-404Component>;
+describe('Http404Component', () => {
+  let component: Http404Component;
+  let fixture: ComponentFixture<Http404Component>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ Http-404Component ]
+      declarations: [Http404Component]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Http-404Component);
+    fixture = TestBed.createComponent(Http404Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

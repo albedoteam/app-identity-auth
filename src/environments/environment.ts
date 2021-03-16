@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  identity: "http://rc.identity.albedo.team/v1",
+  accounts: "http://rc.accounts.albedo.team/v1",
 };
 
 /*

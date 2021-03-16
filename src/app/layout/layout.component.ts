@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from './layout.service';
 
 @Component({
   selector: 'at-layout',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
 
-  constructor() { }
+  public clientName: string;
 
-  ngOnInit() {
+  constructor(
+    private layout: LayoutService
+  ) {
+    this.clientName = '';
   }
 
+  ngOnInit() {
+    this.layout.AccountAsync().subscribe(
+      account => {
+        if (account)
+          this.clientName = account?.displayName
+      }
+    );
+  }
 }
