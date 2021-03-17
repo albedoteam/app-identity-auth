@@ -36,7 +36,7 @@ export class RedirectComponent implements OnInit {
     this.authServer.authServerAsync().subscribe(
       server => {
         if (server) {
-          this.router.navigate(['/auth', '', '']);
+          this.router.navigate(['/auth']);
         }
       }
     )
