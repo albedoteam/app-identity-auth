@@ -5,6 +5,7 @@ import { AccountService } from 'src/services/accounts/account.service';
 import { AccountModel } from 'src/services/accounts/models/account.model';
 import { AuthServerService } from 'src/services/identity/auth-server.service';
 import { IdentityService } from 'src/services/identity/identity.service';
+import { LoadingService } from 'src/services/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,9 @@ export class AuthService {
   private accountId: string | null;
 
   private accountSubscription: Subscription;
-  private authServerSubscription: Subscription;
 
   constructor(
+    private loadings: LoadingService,
     private identities: IdentityService,
     private authServers: AuthServerService,
     private accounts: AccountService,
@@ -29,24 +30,14 @@ export class AuthService {
     this.accountSubscription = this.accounts.accountIdAsync().subscribe(
       id => {
         if (id) {
-          this.authServers.requestAuthServer(id)
-        }
-      }
-    );
-
-    this.authServerSubscription = this.authServers.authServerAsync().subscribe(
-      server => {
-        if (server) {
-          this.router.navigate(['/auth']);
-        }
-        else {
-          this.router.navigate(['/error', '401']);
+          this.authServers.requestAuthServer(id);
         }
       }
     );
   }
 
   login(username: string, password: string) {
+    this.loadings.setLoading('auth', true);
     this.identities.login(username, password);
   }
 

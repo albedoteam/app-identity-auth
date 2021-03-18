@@ -24,7 +24,7 @@ export class RedirectService {
   ) {
     this.accountId = null;
     this.callbackUrl = null;
-    
+
     this.accountSubscription = this.accounts.accountAsync().subscribe(
       account => {
         if (account) {

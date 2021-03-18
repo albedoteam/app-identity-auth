@@ -4,8 +4,10 @@ import { UseExistingWebDriver } from 'protractor/built/driverProviders';
 import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountService } from '../accounts/account.service';
+import { LoadingService } from '../loading.service';
 import { Paged } from '../models/paged-type.model';
 import { OktaService } from '../Okta/okta.service';
+import { SnackBarService } from '../snack-bar.service';
 import { AuthServerService } from './auth-server.service';
 import { AuthServerModel } from './models/auth-server.model';
 import { UserModel } from './models/user.model';
@@ -24,6 +26,8 @@ export class IdentityService {
   private accountIdSubscription: Subscription;
 
   constructor(
+    private snackBars: SnackBarService,
+    private loadings: LoadingService,
     private http: HttpClient,
     private accounts: AccountService,
     private authServers: AuthServerService,
@@ -52,6 +56,9 @@ export class IdentityService {
       if (pagedUser.recordsInPage == 1) {
         this.okta.auth(pagedUser.items[0].usernameAtProvider, password, this.server!, this.callback);
       }
+    }, (error) => {
+      this.loadings.setLoading('auth', false);
+      this.snackBars.openBottom('Autenticação inválida');
     });
   }
 

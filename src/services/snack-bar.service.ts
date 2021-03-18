@@ -12,7 +12,7 @@ export class SnackBarService {
 
   }
 
-  private openTop(message: string, actionText: string = 'x', duration: number = 2000, action?: () => void): void {
+  public openTop(message: string, actionText: string = 'x', duration: number = 2000, action?: () => void): void {
     var config: MatSnackBarConfig = {
       duration: duration,
       verticalPosition: 'top'
@@ -20,7 +20,7 @@ export class SnackBarService {
     this.snackBar.open(message, actionText, config);
   }
 
-  private openBottom(message: string, actionText: string = 'x', duration: number = 2000, action?: () => void): void {
+  public openBottom(message: string, actionText: string = 'x', duration: number = 2000, action?: () => void): void {
     var config: MatSnackBarConfig = {
       duration: duration,
       verticalPosition: 'bottom',

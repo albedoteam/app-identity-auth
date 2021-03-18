@@ -9,11 +9,11 @@
     <mat-label>Senha</mat-label>
     <input formControlName="password" id="password" matInput type="password" minlength="6" maxlength="30" required />
     <mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
-    <mat-error *ngIf="hasError('password', 'minLength')">O login deve ter mais que 6 caractéres</mat-error>
-    <mat-error *ngIf="hasError('password', 'maxLength')">O login deve ter menos de 30 caractéres</mat-error>
+    <mat-error *ngIf="hasError('password', 'minlength')">O login deve ter mais que 6 caractéres</mat-error>
+    <mat-error *ngIf="hasError('password', 'maxlength')">O login deve ter menos de 30 caractéres</mat-error>
   </mat-form-field>
   <button mat-raised-button color="accent" [disabled]="authForm.invalid">
     Login
   </button>
-  <mat-progress-bar class="loading" [class.hidden]=""></mat-progress-bar>
+  <mat-progress-bar class="loading" [mode]="(loading$ | async) ? 'query' : 'determinate'"></mat-progress-bar>
 </form>

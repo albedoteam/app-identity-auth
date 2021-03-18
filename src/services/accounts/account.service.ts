@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountModel } from './models/account.model';
@@ -14,6 +15,7 @@ export class AccountService {
   private account: BehaviorSubject<AccountModel | null>;
 
   constructor(
+    private router: Router,
     private http: HttpClient
   ) {
     var storedAccount = sessionStorage.getItem('account_albedo');
@@ -49,11 +51,14 @@ export class AccountService {
       account => {
         if (account)
           this.account.next(account);
-        else
+        else {
           this.account.next(null);
+          this.router.navigate(['/error', '401']);
+        }
       },
       (error) => {
         this.account.next(null);
+        this.router.navigate(['/error', '401']);
       }
     );
   }
