@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  identity: "http://rc.identity.albedo.team/v1",
-  accounts: "http://rc.accounts.albedo.team/v1",
+  identity: "https://rc.identity.albedo.team/v1",
+  accounts: "https://rc.accounts.albedo.team/v1",
 };
 
 /*
