@@ -1,4 +1,4 @@
-import { ProviderEnum } from "src/api/base/provider.enum";
+import { ProviderEnum } from "src/services/models/provider.enum";
 
 export class AuthServerModel {
     id!: string;
