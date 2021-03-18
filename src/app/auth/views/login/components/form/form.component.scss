@@ -5,14 +5,4 @@
     flex-flow: column;
 
     padding: 20px;
-
-    @media screen and (min-width: var.$s-size) {
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-
-    @media screen and (min-width: var.$g-size) {
-        padding-left: 20%;
-        padding-right: 20%;
-    }
 }
