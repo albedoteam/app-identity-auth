@@ -11,15 +11,11 @@ import { RedirectService } from './redirect.service';
 })
 export class RedirectComponent implements OnInit {
 
-  public loading$: Observable<boolean>;
-
   constructor(
-    private loadings: LoadingService,
     private redirect: RedirectService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
   ) {
-    this.loading$ = this.loadings.loadingAsync('redirect');
   }
 
   ngOnInit() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CallbackService } from './callback.service';
 
 @Component({
   selector: 'app-callback',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CallbackComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private callbacks: CallbackService
+  ) {
   }
 
+  ngOnInit() {
+    this.callbacks.validateRedirection();
+  }
 }

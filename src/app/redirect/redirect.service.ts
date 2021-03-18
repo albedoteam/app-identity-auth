@@ -36,8 +36,6 @@ export class RedirectService {
     this.authServerSubscription = this.authServers.authServerAsync().subscribe(
       server => {
         if (server) {
-          this.loadings.setLoading('redirect', false);
-
           if (this.accountId && this.callbackUrl)
             this.router.navigate(['/auth']);
         }
@@ -46,7 +44,6 @@ export class RedirectService {
   }
 
   public load(): void {
-    this.loadings.setLoading('redirect', true);
     this.accounts.setAccount(this.accountId!);
   }
 
