@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  identity: "http://identity.albedo.team/v1",
-  accounts: "http://accounts.albedo.team/v1",
+  identity: 'http://rc.identity.albedo.team/v1',
+  accounts: 'http://rc.accounts.albedo.team/v1',
 };
