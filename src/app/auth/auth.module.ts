@@ -20,13 +20,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './views/login/components/form/form.component';
 import { LinksComponent } from './views/login/components/links/links.component';
 import { SocialMediaComponent } from './views/login/components/social-media/social-media.component';
-import { OAuthModule } from 'angular-oauth2-oidc';
-import { HttpClientModule } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
     RouterModule,
     ReactiveFormsModule,
     AuthRoutingModule,
@@ -37,7 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     MatButtonModule,
     MatSlideToggleModule,
-    OAuthModule.forRoot(),
+    MatProgressBarModule,
   ],
   declarations: [
     AuthComponent,
@@ -48,6 +46,6 @@ import { HttpClientModule } from '@angular/common/http';
     LinksComponent,
     SocialMediaComponent,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AuthModule { }

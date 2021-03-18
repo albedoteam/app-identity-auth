@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountService } from 'src/api/accounts/account.service';
-import { AccountModel } from 'src/api/accounts/models/account.model';
+import { AccountService } from 'src/services/accounts/account.service';
+import { AccountModel } from 'src/services/accounts/models/account.model';
 
 @Injectable({
-  providedIn: 'any'
+  providedIn: 'root'
 })
 export class LayoutService {
 

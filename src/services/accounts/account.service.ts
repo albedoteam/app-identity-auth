@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AccountModel } from './models/account.model';
@@ -14,19 +15,23 @@ export class AccountService {
   private account: BehaviorSubject<AccountModel | null>;
 
   constructor(
+    private router: Router,
     private http: HttpClient
   ) {
-    var storedAccount = localStorage.getItem('account_albedo');
+    var storedAccount = sessionStorage.getItem('account_albedo');
     if (storedAccount == null)
       this.accountId = new BehaviorSubject<string | null>('');
     else
       this.accountId = new BehaviorSubject<string | null>(storedAccount);
 
+    if (this.accountId.getValue())
+      this.requestAccount(this.accountId.getValue()!)
+
     this.account = new BehaviorSubject<AccountModel | null>(null);
 
     this.accountIdSubs = this.accountIdAsync().subscribe(id => {
       if (id)
-        localStorage.setItem('account_albedo', id as string);
+        sessionStorage.setItem('account_albedo', id as string);
     });
   }
 
@@ -39,13 +44,21 @@ export class AccountService {
     this.requestAccount(account);
   }
 
-  public requestAccount(accountId: string): void {
+  private requestAccount(accountId: string): void {
     this.http.get<AccountModel>(
       `${environment.accounts}/Account/${accountId}`
     ).subscribe(
       account => {
         if (account)
           this.account.next(account);
+        else {
+          this.account.next(null);
+          this.router.navigate(['/error', '401']);
+        }
+      },
+      (error) => {
+        this.account.next(null);
+        this.router.navigate(['/error', '401']);
       }
     );
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService } from 'src/api/accounts/account.service';
-import { AuthServerService } from 'src/api/identity/auth-server.service';
+import { Observable } from 'rxjs';
+import { LoadingService } from 'src/services/loading.service';
+import { RedirectService } from './redirect.service';
 
 @Component({
   selector: 'app-redirect',
@@ -10,35 +11,36 @@ import { AuthServerService } from 'src/api/identity/auth-server.service';
 })
 export class RedirectComponent implements OnInit {
 
+  public loading$: Observable<boolean>;
+
   constructor(
-    private accountService: AccountService,
-    private authServer: AuthServerService,
+    private loadings: LoadingService,
+    private redirect: RedirectService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-  ) { }
+  ) {
+    this.loading$ = this.loadings.loadingAsync('redirect');
+  }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
       params => {
         if (params.account)
-          this.accountService.setAccount(params.account);
+          this.redirect.setAccountId(params.account);
+        else {
+          this.router.navigate(["/error/401"]);
+          return;
+        }
+
+        if (params.callbackUrl)
+          this.redirect.setCallbackUrl(params.callbackUrl);
+        else {
+          this.router.navigate(["/error/401"]);
+          return;
+        }
+
+        this.redirect.load();
       }
     );
-
-    this.accountService.accountIdAsync().subscribe(
-      id => {
-        if (id) {
-          this.authServer.requestAuthServer(id)
-        }
-      }
-    );
-
-    this.authServer.authServerAsync().subscribe(
-      server => {
-        if (server) {
-          this.router.navigate(['/auth']);
-        }
-      }
-    )
   }
 }

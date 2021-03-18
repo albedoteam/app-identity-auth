@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AccountService } from 'src/services/accounts/account.service';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'at-auth',
@@ -7,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private auths: AuthService
+  ) {
 
-  ngOnInit() {
   }
 
+  ngOnInit() {
+    this.auths.validate();
+  }
 }

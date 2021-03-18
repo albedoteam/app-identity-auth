@@ -1,6 +1,10 @@
-<div class="page">
-    <div class="loading">
-        <mat-progress-bar mode="query"></mat-progress-bar>
-        <h3 class="loading-text">Loading information... :) </h3>
-    </div>
+<div class="page" *ngIf="(loading$ | async)">
+    <mat-card class="loading">
+        <mat-toolbar class="loading-bar" color="primary">
+            <h3>Buscando informações</h3>
+        </mat-toolbar>
+        <mat-card-content class="login-content">
+            <mat-progress-bar mode="query"></mat-progress-bar>
+        </mat-card-content>
+    </mat-card>
 </div>

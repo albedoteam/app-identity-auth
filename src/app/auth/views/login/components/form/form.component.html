@@ -7,12 +7,13 @@
   </mat-form-field>
   <mat-form-field>
     <mat-label>Senha</mat-label>
-    <input formControlName="password" id="password" matInput type="password" minlength="1" maxlength="30" required />
-    <mat-error *ngIf="hasError('username', 'required')">A senha é obrigatória</mat-error>
-    <mat-error *ngIf="hasError('username', 'minLength')">O login deve ter mais que 6 caractéres</mat-error>
-    <mat-error *ngIf="hasError('username', 'maxLength')">O login deve ter menos de 30 caractéres</mat-error>
+    <input formControlName="password" id="password" matInput type="password" minlength="6" maxlength="30" required />
+    <mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
+    <mat-error *ngIf="hasError('password', 'minlength')">O login deve ter mais que 6 caractéres</mat-error>
+    <mat-error *ngIf="hasError('password', 'maxlength')">O login deve ter menos de 30 caractéres</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary">
+  <button mat-raised-button color="accent" [disabled]="authForm.invalid">
     Login
   </button>
+  <mat-progress-bar class="loading" [mode]="(loading$ | async) ? 'query' : 'determinate'"></mat-progress-bar>
 </form>
