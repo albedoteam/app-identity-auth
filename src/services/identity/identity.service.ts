@@ -54,7 +54,10 @@ export class IdentityService {
   public login(username: string, password: string): void {
     this.getUser(username).subscribe(pagedUser => {
       if (pagedUser.recordsInPage == 1) {
-        this.okta.auth(pagedUser.items[0].usernameAtProvider, password);
+        if (pagedUser.items[0].active)
+          this.okta.auth(pagedUser.items[0].usernameAtProvider, password);
+        else
+          this.snackBars.openBottom('Autenticação inválida');
       }
     }, (error) => {
       this.loadings.setLoading('auth', false);
