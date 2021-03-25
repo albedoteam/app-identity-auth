@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AccountService } from 'src/services/accounts/account.service';
 import { AccountModel } from 'src/services/accounts/models/account.model';
 import { AuthServerService } from 'src/services/identity/auth-server.service';
 import { AuthServerModel } from 'src/services/identity/models/auth-server.model';
+import { PasswordRecoveryModel } from 'src/services/identity/models/password-recovery.model';
+import { PasswordRecoveryService } from 'src/services/identity/password-recovery.service';
 import { UserService } from 'src/services/identity/user.service';
 import { LoadingService } from 'src/services/loading.service';
 import { LoadingEnum } from 'src/services/models/loading.enum';
@@ -15,7 +17,10 @@ import { SnackBarService } from 'src/services/snack-bar.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class TokenService {
+  private userId!: string;
+
+  private tokenValidatedSubject: BehaviorSubject<boolean>;
 
   private accountSubject: BehaviorSubject<AccountModel | null>;
 
@@ -34,7 +39,10 @@ export class AuthService {
     private users: UserService,
     private okta: OktaService,
     private router: Router,
+    private passwordRecoverys: PasswordRecoveryService,
   ) {
+    this.tokenValidatedSubject = new BehaviorSubject<boolean>(false);
+
     this.accountSubject = new BehaviorSubject<AccountModel | null>(null);
 
     this.authServerSubject = new BehaviorSubject<AuthServerModel | null>(null);
@@ -56,8 +64,50 @@ export class AuthService {
     );
   }
 
+  public tokenValidatedAsync = (): Observable<boolean> => this.tokenValidatedSubject.asObservable();
+
+  public setPassword(password: string) {
+    this.loadings.loading(LoadingEnum.token_set_password, true);
+    this.users.setPassword(this.accountSubject.getValue()?.id!, this.userId, password).subscribe(
+      () => {
+        this.snackBars.openBottom('Senha alterada');
+        this.router.navigate(["/auth", "login"]);
+        this.loadings.loading(LoadingEnum.token_set_password, false);
+      },
+      (error) => {
+        this.snackBars.openBottom('Falha ao alterar a senha');
+        this.loadings.loading(LoadingEnum.token_set_password, false);
+      }
+    );
+  }
+
+  public checkToken(token: string): void {
+    this.loadings.loading(LoadingEnum.token_get_token, true);
+    this.passwordRecoverys.get(this.accountSubject.getValue()?.id!, token).subscribe(
+      recovery => {
+        if (recovery) {
+          if (new Date() >= new Date(recovery.expiresAt)) {
+            this.loadings.loading(LoadingEnum.token_get_token, false);
+            this.snackBars.openBottom('Token inválido');
+            this.tokenValidatedSubject.next(false);
+            return;
+          }
+
+          this.userId = recovery.userId;
+          this.loadings.loading(LoadingEnum.token_get_token, false);
+          this.tokenValidatedSubject.next(true);
+        }
+      },
+      (error) => {
+        this.loadings.loading(LoadingEnum.token_get_token, false);
+        this.snackBars.openBottom('Token inválido');
+        this.tokenValidatedSubject.next(false);
+      }
+    );
+  }
+
   public loadAccount(): void {
-    this.loadings.loading(LoadingEnum.auth_load, true);
+    this.loadings.loading(LoadingEnum.token_load, true);
 
     if (this.sessions.accountId() == null)
       this.router.navigate(['/error', '401']);
@@ -68,7 +118,7 @@ export class AuthService {
           this.accountSubject.next(account);
         else {
           this.router.navigate(['/error', '401']);
-          this.loadings.loading(LoadingEnum.auth_load, false);
+          this.loadings.loading(LoadingEnum.token_load, false);
         }
       }
     );
@@ -84,22 +134,7 @@ export class AuthService {
         else
           this.router.navigate(['/error', '401']);
 
-        this.loadings.loading(LoadingEnum.auth_load, false);
-      }
-    );
-  }
-
-  public login(username: string, password: string) {
-    this.loadings.loading(LoadingEnum.auth_load, true);
-
-    var query = this.users.defaultQuery;
-    query.pageSize = 1;
-    this.users.filterBy(username, query, `accountId=${this.accountSubject.getValue()?.id}`).subscribe(
-      pagedUser => {
-        if (pagedUser.recordsInPage > 0)
-          this.okta.auth(pagedUser.items[0].usernameAtProvider, password);
-        else
-          this.snackBars.openBottom('Autenticação inválida');
+        this.loadings.loading(LoadingEnum.token_load, false);
       }
     );
   }

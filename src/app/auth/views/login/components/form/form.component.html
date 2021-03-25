@@ -15,5 +15,7 @@
   <button mat-raised-button color="accent" [disabled]="authForm.invalid">
     Login
   </button>
-  <mat-progress-bar class="loading" [mode]="(loading$ | async) ? 'query' : 'determinate'"></mat-progress-bar>
+  <mat-progress-bar class="loading"
+    [mode]="(loading_auth_load$ | async) || (loading_auth_login$ | async) ? 'query' : 'determinate'">
+  </mat-progress-bar>
 </form>

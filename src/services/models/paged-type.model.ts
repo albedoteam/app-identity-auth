@@ -8,5 +8,5 @@ export class Paged<T> {
     filterBy!: string;
     orderBy!: string;
     sorting!: SortingEnum;
-    items!: [T];
+    items!: Array<T>;
 }
