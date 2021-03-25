@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { SessionService } from 'src/services/session.service';
 
 @Component({
   selector: 'at-http-404',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Http404Component implements OnInit {
 
-  constructor() { }
+  constructor(
+    private title: Title,
+    private sessions: SessionService,
+  ) {
 
-  ngOnInit() {
   }
 
+  ngOnInit(): void {
+    this.sessions.accountNameAsync().subscribe(
+      accountName => {
+        if (accountName)
+          this.title.setTitle(`${accountName} - Login`);
+        else
+          this.title.setTitle(`Não encontrado`);
+      }
+    );
+  }
 }

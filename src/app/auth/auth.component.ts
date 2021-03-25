@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AccountService } from 'src/services/accounts/account.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -11,12 +10,23 @@ import { AuthService } from './auth.service';
 export class AuthComponent implements OnInit {
 
   constructor(
-    private auths: AuthService
+    private auths: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
   ) {
 
   }
 
   ngOnInit() {
-    this.auths.validate();
+    if (this.activatedRoute.snapshot.queryParamMap.keys.length > 0) {
+      this.router.navigate([],
+        {
+          queryParams: null,
+          replaceUrl: true
+        });
+    }
+    else {
+      this.auths.loadAccount();
+    }
   }
 }

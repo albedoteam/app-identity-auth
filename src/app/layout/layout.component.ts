@@ -8,19 +8,19 @@ import { LayoutService } from './layout.service';
 })
 export class LayoutComponent implements OnInit {
 
-  public clientName: string;
+  public accountName: string;
 
   constructor(
     private layout: LayoutService
   ) {
-    this.clientName = '';
+    this.accountName = '';
   }
 
   ngOnInit() {
-    this.layout.AccountAsync().subscribe(
+    this.layout.accountName.subscribe(
       account => {
         if (account)
-          this.clientName = account?.displayName
+          this.accountName = account
       }
     );
   }

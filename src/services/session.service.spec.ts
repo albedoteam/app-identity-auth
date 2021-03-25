@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { RedirectService } from './redirect.service';
+import { SessionService } from './session.service';
 
-describe('Service: Redirect', () => {
+describe('Service: Session', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RedirectService]
+      providers: [SessionService]
     });
   });
 
-  it('should ...', inject([RedirectService], (service: RedirectService) => {
+  it('should ...', inject([SessionService], (service: SessionService) => {
     expect(service).toBeTruthy();
   }));
 });

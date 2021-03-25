@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { SessionService } from 'src/services/session.service';
 
 @Component({
   selector: 'at-login',
@@ -7,12 +8,20 @@ import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  
-  constructor() {
+
+  constructor(
+    private title: Title,
+    private sessions: SessionService,
+  ) {
 
   }
 
   ngOnInit(): void {
-
+    this.sessions.accountNameAsync().subscribe(
+      accountName => {
+        if (accountName)
+          this.title.setTitle(`${accountName} - Login`);
+      }
+    );
   }
 }

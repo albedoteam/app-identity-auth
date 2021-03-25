@@ -1,0 +1,31 @@
+.token-bar {
+    top: 0;
+    left: 0;
+    justify-content: center;
+}
+
+.token-content {
+    width: 100%;
+
+    .content-form {
+        display: flex;
+        flex-flow: column;
+
+        .form {
+            padding: 20px;
+            display: flex;
+            flex-flow: column;
+
+            &.token {
+                display: flex;
+                flex-flow: row;
+                justify-content: space-between;
+
+                .mat-form-field {
+                    width: 25px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}

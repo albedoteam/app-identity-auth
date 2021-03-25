@@ -6,38 +6,36 @@ import { AccountService } from '../accounts/account.service';
 import { AuthServerService } from '../identity/auth-server.service';
 import { AuthServerModel } from '../identity/models/auth-server.model';
 import { LoadingService } from '../loading.service';
+import { LoadingEnum } from '../models/loading.enum';
+import { StorageEnum } from '../models/storage.enum';
+import { SessionService } from '../session.service';
 import { SnackBarService } from '../snack-bar.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OktaService {
-
   private authServer!: AuthServerModel;
   private authClient!: OktaAuth;
   private authServersSubscription!: Subscription;
 
   constructor(
+    private sessions: SessionService,
     private loadings: LoadingService,
     private snackBars: SnackBarService,
     private oAuthService: OAuthService,
-    private authServers: AuthServerService,
   ) {
-    this.authServersSubscription = this.authServers.authServerAsync().subscribe(
-      authServer => {
-        if (authServer) {
-          this.authServer = authServer;
-          this.authClient = new OktaAuth({
-            clientId: this.authServer.clientId,
-            authorizeUrl: this.authServer.authUrl,
-            tokenUrl: this.authServer.accessTokenUrl,
-            issuer: this.authServer.issuer,
-          });
-        }
-      }
-    );
   }
 
+  public loadAuthClient(authServer: AuthServerModel) {
+    this.authServer = authServer;
+    this.authClient = new OktaAuth({
+      clientId: this.authServer.clientId,
+      authorizeUrl: this.authServer.authUrl,
+      tokenUrl: this.authServer.accessTokenUrl,
+      issuer: this.authServer.issuer,
+    });
+  }
 
   public auth(username: string, password: string): void {
     this.oAuthService.createAndSaveNonce().then(
@@ -59,7 +57,7 @@ export class OktaService {
       }
     ).catch(
       (error) => {
-        this.loadings.setLoading('auth', false);
+        this.loadings.loading(LoadingEnum.auth_login, false);
         this.snackBars.openBottom('Autenticação inválida');
       }
     );
@@ -68,7 +66,7 @@ export class OktaService {
 
   private authorized(authTransaction: AuthTransaction, nonce: string): Promise<void> {
     if (authTransaction.status === 'SUCCESS') {
-      this.loadings.setLoading('auth', false);
+      this.loadings.loading(LoadingEnum.auth_login, false);
       return this.authClient.token.getWithRedirect(
         {
           clientId: this.authServer.clientId,
@@ -81,7 +79,7 @@ export class OktaService {
       )
     }
     else {
-      this.loadings.setLoading('auth', false);
+      this.loadings.loading(LoadingEnum.auth_login, false);
       this.snackBars.openBottom('Autenticação inválida');
       return new Promise<void>((resolve, reject) => {
         resolve();
@@ -101,6 +99,6 @@ export class OktaService {
   private token(response: TokenResponse): void {
     const accessToken = response.tokens.accessToken?.accessToken;
 
-    location.href = `${sessionStorage.getItem('callbackUrl') || ''}?auth=${accessToken}`;
+    location.href = `${this.sessions.callbackUrl() || ''}?auth=${accessToken}`;
   }
 }

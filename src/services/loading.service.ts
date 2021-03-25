@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { LoadingEnum } from './models/loading.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +13,14 @@ export class LoadingService {
     this.data = {};
   }
 
-  public setLoading(key: string, value: boolean): void {
+  public loading(key: LoadingEnum, value: boolean): void {
     if (this.data[key] == undefined)
       this.data[key] = new BehaviorSubject<boolean>(false);
 
     this.data[key].next(value);
   }
 
-  public loadingAsync(key: string): Observable<boolean> {
+  public loadingAsync(key: LoadingEnum): Observable<boolean> {
     if (this.data[key] == undefined)
       this.data[key] = new BehaviorSubject<boolean>(false);
 

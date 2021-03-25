@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AppGuard } from 'src/services/guards/app.guard';
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "redirect",
+    redirectTo: "auth/404",
     pathMatch: "full"
   },
   {
@@ -13,15 +14,18 @@ const routes: Routes = [
   },
   {
     path: "auth",
+    canActivate: [AppGuard],
     loadChildren: () => import("./auth/auth.module").then(m => m.AuthModule),
   },
   {
     path: "callback",
+    canActivate: [AppGuard],
     loadChildren: () => import("./callback/callback.module").then(m => m.CallbackModule),
   },
   {
-    path: "redirect",
-    loadChildren: () => import("./redirect/redirect.module").then(m => m.RedirectModule),
+    path: "tokens",
+    canActivate: [AppGuard],
+    loadChildren: () => import("./token/token.module").then(m => m.TokenModule),
   },
 ];
 

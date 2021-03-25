@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { SessionService } from 'src/services/session.service';
 import { CallbackService } from './callback.service';
 
 @Component({
@@ -9,11 +11,19 @@ import { CallbackService } from './callback.service';
 export class CallbackComponent implements OnInit {
 
   constructor(
+    private title: Title,
+    private sessions: SessionService,
     private callbacks: CallbackService
   ) {
   }
 
   ngOnInit() {
     this.callbacks.validateRedirection();
+    this.sessions.accountNameAsync().subscribe(
+      accountName => {
+        if (accountName)
+          this.title.setTitle(`${accountName} - Validação de autenticação`);
+      }
+    );
   }
 }
