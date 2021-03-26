@@ -61,14 +61,19 @@ export class AuthService {
 
     if (this.sessions.accountId() == null)
       this.router.navigate(['/error', '401']);
-
-    this.accounts.get(this.sessions.accountId()!).subscribe(
-      account => {
-        if (account)
-          this.accountSubject.next(account);
-        else {
-          this.router.navigate(['/error', '401']);
-          this.loadings.loading(LoadingEnum.auth_load, false);
+    this.sessions.accountIdAsync().subscribe(
+      accountId => {
+        if (accountId) {
+          this.accounts.get(accountId!).subscribe(
+            account => {
+              if (account)
+                this.accountSubject.next(account);
+              else {
+                this.router.navigate(['/error', '401']);
+                this.loadings.loading(LoadingEnum.auth_load, false);
+              }
+            }
+          );
         }
       }
     );
@@ -90,7 +95,7 @@ export class AuthService {
   }
 
   public login(username: string, password: string) {
-    this.loadings.loading(LoadingEnum.auth_load, true);
+    this.loadings.loading(LoadingEnum.auth_login, true);
 
     var query = this.users.defaultQuery;
     query.pageSize = 1;
@@ -98,8 +103,10 @@ export class AuthService {
       pagedUser => {
         if (pagedUser.recordsInPage > 0)
           this.okta.auth(pagedUser.items[0].usernameAtProvider, password);
-        else
+        else {
           this.snackBars.openBottom('Autenticação inválida');
+          this.loadings.loading(LoadingEnum.auth_login, false);
+        }
       }
     );
   }

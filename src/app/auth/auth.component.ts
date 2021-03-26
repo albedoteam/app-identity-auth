@@ -25,8 +25,7 @@ export class AuthComponent implements OnInit {
           replaceUrl: true
         });
     }
-    else {
-      this.auths.loadAccount();
-    }
+
+    this.auths.loadAccount();
   }
 }

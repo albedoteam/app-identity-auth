@@ -18,12 +18,12 @@ export class CallbackComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.callbacks.validateRedirection();
     this.sessions.accountNameAsync().subscribe(
       accountName => {
         if (accountName)
           this.title.setTitle(`${accountName} - Validação de autenticação`);
       }
     );
+    this.callbacks.loadAccount();
   }
 }

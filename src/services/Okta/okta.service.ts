@@ -15,9 +15,9 @@ import { SnackBarService } from '../snack-bar.service';
   providedIn: 'root'
 })
 export class OktaService {
+  
   private authServer!: AuthServerModel;
   private authClient!: OktaAuth;
-  private authServersSubscription!: Subscription;
 
   constructor(
     private sessions: SessionService,
@@ -25,6 +25,7 @@ export class OktaService {
     private snackBars: SnackBarService,
     private oAuthService: OAuthService,
   ) {
+    
   }
 
   public loadAuthClient(authServer: AuthServerModel) {
@@ -48,8 +49,8 @@ export class OktaService {
 
     return this.authClient.signInWithCredentials(
       {
-        username: username,
-        password: password,
+        username,
+        password,
       }
     ).then(
       (response) => {
