@@ -1,12 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injector } from "@angular/core";
-import { Router } from "@angular/router";
-import { BehaviorSubject, Observable } from "rxjs";
-import { LoadingService } from "../loading.service";
-import { LoadingEnum } from "../models/loading.enum";
+import { Observable } from "rxjs";
 import { Paged } from "../models/paged-type.model";
 import { SortingEnum } from "../models/sorting.enum";
-import { SnackBarService } from "../snack-bar.service";
 
 export class BaseService<T> {
 
