@@ -28,8 +28,7 @@ export class TokenComponent implements OnInit {
           replaceUrl: true
         });
     }
-    else {
-      this.tokens.loadAccount();
-    }
+
+    this.tokens.loadAccount();
   }
 }
