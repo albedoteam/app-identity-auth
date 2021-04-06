@@ -8,16 +8,18 @@ export class BaseService<T> {
 
     public http!: HttpClient;
 
-    public readonly defaultQuery: Paged<T> = {
-        page: 1,
-        pageSize: 1,
-        sorting: SortingEnum.Asc,
-        orderBy: '',
-        filterBy: '',
-        recordsInPage: 0,
-        totalPages: 0,
-        items: []
-    };
+    get defaultQuery(): Paged<T> {
+        return {
+            page: 1,
+            pageSize: 1,
+            sorting: SortingEnum.Asc,
+            orderBy: '',
+            filterBy: '',
+            recordsInPage: 0,
+            totalPages: 0,
+            items: []
+        }
+    }
 
     constructor(
         protected baseRoute: string,

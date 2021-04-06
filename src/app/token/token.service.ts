@@ -70,6 +70,8 @@ export class TokenService {
     this.loadings.loading(LoadingEnum.token_set_password, true);
     this.users.setPassword(this.accountSubject.getValue()?.id!, this.userId, password).subscribe(
       () => {
+        this.users.activate(this.accountSubject.getValue()?.id!, this.userId).subscribe();
+
         this.snackBars.openBottom('Senha alterada');
         this.router.navigate(["/auth", "login"]);
         this.loadings.loading(LoadingEnum.token_set_password, false);

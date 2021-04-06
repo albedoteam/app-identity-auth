@@ -1,6 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { BaseService } from '../base/base.service';
+import { ActivateUserModel } from './models/activate-user.model';
 import { ChangePasswordModel } from './models/change-password.model';
 import { UserModel } from './models/user.model';
 
@@ -27,6 +28,19 @@ export class UserService extends BaseService<UserModel> {
     return this.http.patch(
       `${this.baseRoute}/${userId}/setPassword`,
       setPassword
+    );
+  }
+
+  public activate(accountId: string, userId: string) {
+    var activateUser: ActivateUserModel = {
+      accountId: accountId,
+      id: userId,
+      reason: "First access"
+    };
+
+    return this.http.patch(
+      `${this.baseRoute}/${userId}/activate`,
+      activateUser
     );
   }
 }

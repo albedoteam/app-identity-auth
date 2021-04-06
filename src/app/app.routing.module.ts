@@ -5,7 +5,7 @@ import { AppGuard } from 'src/services/guards/app.guard';
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "auth/404",
+    redirectTo: "auth/login",
     pathMatch: "full"
   },
   {
