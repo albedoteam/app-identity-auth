@@ -1,4 +1,4 @@
 export enum SortingEnum {
-    Asc,
-    Desc
+    Asc = "Asc",
+    Desc = "Desc"
 }
