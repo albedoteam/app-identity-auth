@@ -99,7 +99,7 @@ export class AuthService {
 
     var query = this.users.defaultQuery;
     query.pageSize = 1;
-    this.users.filterBy(username, query, `accountId=${this.accountSubject.getValue()?.id}`).subscribe(
+    this.users.filterBy(`username eq '${username}'`, query, `accountId=${this.accountSubject.getValue()?.id}`).subscribe(
       pagedUser => {
         if (pagedUser.recordsInPage > 0)
           this.okta.auth(pagedUser.items[0].usernameAtProvider, password);
