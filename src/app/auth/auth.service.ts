@@ -5,6 +5,8 @@ import { AccountService } from 'src/services/accounts/account.service';
 import { AccountModel } from 'src/services/accounts/models/account.model';
 import { AuthServerService } from 'src/services/identity/auth-server.service';
 import { AuthServerModel } from 'src/services/identity/models/auth-server.model';
+import { CreatePasswordRecoveryModel } from 'src/services/identity/models/create-password-recovery.model';
+import { PasswordRecoveryService } from 'src/services/identity/password-recovery.service';
 import { UserService } from 'src/services/identity/user.service';
 import { LoadingService } from 'src/services/loading.service';
 import { LoadingEnum } from 'src/services/models/loading.enum';
@@ -16,7 +18,6 @@ import { SnackBarService } from 'src/services/snack-bar.service';
   providedIn: 'root'
 })
 export class AuthService {
-
   private accountSubject: BehaviorSubject<AccountModel | null>;
 
   private accountSubscription!: Subscription;
@@ -31,6 +32,7 @@ export class AuthService {
     private loadings: LoadingService,
     private accounts: AccountService,
     private authServers: AuthServerService,
+    private passwordRecoverys: PasswordRecoveryService,
     private users: UserService,
     private okta: OktaService,
     private router: Router,
@@ -90,6 +92,28 @@ export class AuthService {
           this.router.navigate(['/error', '401']);
 
         this.loadings.loading(LoadingEnum.auth_load, false);
+      }
+    );
+  }
+
+  public changePassword(email: string): void {
+    this.loadings.loading(LoadingEnum.auth_login, true);
+
+    let create: CreatePasswordRecoveryModel = {
+      accountId: this.sessions.accountId()!,
+      userEmail: email,
+    };
+
+    this.loadings.loading(LoadingEnum.auth_login, true);
+    this.passwordRecoverys.create(create).subscribe(
+      create => {
+        this.router.navigate(['/auth', 'login']);
+        this.snackBars.openBottom('Caso o usuário esteja cadastrado, você receberá um e-mail com as instruções para recuperação de senha.');
+        this.loadings.loading(LoadingEnum.auth_login, false);
+      },
+      (error) => {
+        this.loadings.loading(LoadingEnum.auth_login, false);
+        this.snackBars.openBottom('Falha ao solicitar recuperação de senha.');
       }
     );
   }

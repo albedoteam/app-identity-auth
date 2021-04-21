@@ -1,0 +1,14 @@
+<form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate>
+  <mat-form-field>
+    <mat-label>E-mail para recuperação</mat-label>
+    <input formControlName="username" id="username" matInput type="text" required email />
+    <mat-error *ngIf="hasError('username', 'required')">O e-mail é obrigatório</mat-error>
+    <mat-error *ngIf="hasError('username', 'email')">O e-mail deve ser um válido</mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="accent" [disabled]="authForm.invalid">
+    Recuperar senha
+  </button>
+  <mat-progress-bar class="loading"
+    [mode]="(loading_auth_load$ | async) || (loading_auth_login$ | async) ? 'query' : 'determinate'">
+  </mat-progress-bar>
+</form>

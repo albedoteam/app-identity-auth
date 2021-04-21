@@ -71,7 +71,7 @@ export class TokenService {
     this.users.setPassword(this.accountSubject.getValue()?.id!, this.userId, password).subscribe(
       () => {
         this.snackBars.openBottom('Senha alterada');
-        this.users.get(this.userId, `accountId=${this.accountSubject.getValue()!.id}`).subscribe(
+        this.users.get(this.userId, `?accountId=${this.accountSubject.getValue()!.id}`).subscribe(
           user => {
             if (user.active) {
               this.okta.auth(user.usernameAtProvider, password);

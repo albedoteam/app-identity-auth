@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { concat, merge, Observable, pipe, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { LoadingService } from 'src/services/loading.service';
 import { LoadingEnum } from 'src/services/models/loading.enum';
 
 @Component({
-  selector: 'at-login-form',
+  selector: 'at-fp-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-export class LoginFormComponent implements OnInit, OnDestroy {
+export class ForgetPasswordFormComponent implements OnInit {
 
   public loading_auth_load$: Observable<boolean>;
   public loading_auth_login$: Observable<boolean>;
@@ -29,8 +29,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.loading_auth_login$ = this.loadings.loadingAsync(LoadingEnum.auth_login);
 
     this.authForm = new FormGroup({
-      username: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
+      username: new FormControl('', [Validators.required, Validators.email])
     });
   }
 
@@ -42,11 +41,9 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       loading => {
         if (loading) {
           this.authForm.controls['username'].disable();
-          this.authForm.controls['password'].disable();
         }
         else {
           this.authForm.controls['username'].enable();
-          this.authForm.controls['password'].enable();
         }
       }
     )
@@ -54,14 +51,12 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       loading => {
         if (loading) {
           this.authForm.controls['username'].disable();
-          this.authForm.controls['password'].disable();
         }
         else {
           this.authForm.controls['username'].enable();
-          this.authForm.controls['password'].enable();
         }
       }
-    )
+    );
   }
 
   public hasError = (controlName: string, errorName: string) => {
@@ -70,6 +65,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   public login = ($event: Event): void => {
     $event.preventDefault();
-    this.authService.login(this.authForm.controls["username"].value, this.authForm.controls["password"].value);
+    this.authService.changePassword(this.authForm.controls["username"].value);
   }
 }

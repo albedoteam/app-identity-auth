@@ -17,10 +17,11 @@ import { RegisterComponent } from './views/register/register.component';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormComponent } from './views/login/components/form/form.component';
 import { LinksComponent } from './views/login/components/links/links.component';
 import { SocialMediaComponent } from './views/login/components/social-media/social-media.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoginFormComponent } from './views/login/components/form/form.component';
+import { ForgetPasswordFormComponent } from './views/forgot-password/components/form/form.component';
 
 @NgModule({
   imports: [
@@ -42,9 +43,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    FormComponent,
+    LoginFormComponent,
     LinksComponent,
     SocialMediaComponent,
+    ForgetPasswordFormComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
