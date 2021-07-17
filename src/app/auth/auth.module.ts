@@ -22,32 +22,34 @@ import { SocialMediaComponent } from './views/login/components/social-media/soci
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoginFormComponent } from './views/login/components/form/form.component';
 import { ForgetPasswordFormComponent } from './views/forgot-password/components/form/form.component';
+import { DirectivesModule } from '../directives/directives.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    AuthRoutingModule,
-    MatCommonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatButtonModule,
-    MatSlideToggleModule,
-    MatProgressBarModule,
-  ],
-  declarations: [
-    AuthComponent,
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    LoginFormComponent,
-    LinksComponent,
-    SocialMediaComponent,
-    ForgetPasswordFormComponent,
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    imports: [
+        CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        AuthRoutingModule,
+        MatCommonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatButtonModule,
+        MatSlideToggleModule,
+        MatProgressBarModule,
+        DirectivesModule,
+    ],
+    declarations: [
+        AuthComponent,
+        LoginComponent,
+        RegisterComponent,
+        ForgotPasswordComponent,
+        LoginFormComponent,
+        LinksComponent,
+        SocialMediaComponent,
+        ForgetPasswordFormComponent,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AuthModule { }

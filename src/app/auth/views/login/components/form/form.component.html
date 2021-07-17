@@ -1,21 +1,23 @@
 <form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate>
-  <mat-form-field>
-    <mat-label>Usuário</mat-label>
-    <input formControlName="username" id="username" matInput type="text" required email />
-    <mat-error *ngIf="hasError('username', 'required')">O login é obrigatório</mat-error>
-    <mat-error *ngIf="hasError('username', 'email')">O login deve ser um e-mail válido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Senha</mat-label>
-    <input formControlName="password" id="password" matInput type="password" minlength="6" maxlength="30" required />
-    <mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
-    <mat-error *ngIf="hasError('password', 'minlength')">O login deve ter mais que 6 caractéres</mat-error>
-    <mat-error *ngIf="hasError('password', 'maxlength')">O login deve ter menos de 30 caractéres</mat-error>
-  </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="authForm.invalid">
-    Login
-  </button>
-  <mat-progress-bar class="loading"
-    [mode]="(loading_auth_load$ | async) || (loading_auth_login$ | async) ? 'query' : 'determinate'">
-  </mat-progress-bar>
+    <mat-form-field>
+        <mat-label>Usuário</mat-label>
+        <input formControlName="username" id="username" matInput type="text" required email />
+        <mat-error *ngIf="hasError('username', 'required')">O login é obrigatório</mat-error>
+        <mat-error *ngIf="hasError('username', 'email')">O login deve ser um e-mail válido</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <input formControlName="password" id="password" matInput type="password" minlength="6" maxlength="30"
+            required />
+        <mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">O login deve ter mais que 6 caractéres</mat-error>
+        <mat-error *ngIf="hasError('password', 'maxlength')">O login deve ter menos de 30 caractéres</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="authForm.invalid" [mat-darker]="darkMode$ | async"
+        [mat-lighter]="!(darkMode$ | async)">
+        Login
+    </button>
+    <mat-progress-bar class="loading" [mat-darker]="true" color="accent"
+        [mode]="(loading_auth_load$ | async) || (loading_auth_login$ | async) ? 'query' : 'determinate'">
+    </mat-progress-bar>
 </form>

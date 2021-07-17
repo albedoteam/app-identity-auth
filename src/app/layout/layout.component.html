@@ -1,11 +1,23 @@
-<div class="main themed">
-  <mat-toolbar class="top-bar" color="primary">
-    {{ accountName }}
-  </mat-toolbar>
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
-  <mat-toolbar class="bottom-bar" color="primary">
-    <a mat-button href="https://albedo.team">powered by @Albedo Team</a>
-  </mat-toolbar>
+<div class="main themed" [class.dark]="isDarkMode$ | async" fxLayout="column">
+    <mat-toolbar class="top-bar" color="primary" [mat-darker]="isDarkMode$ | async"
+        [mat-lighter]="!(isDarkMode$ | async)" fxLayout="row" fxLayoutAlign="space-between center">
+        <a mat-button href="https://greendomus.com.br">
+            <img class="logo" [class.hidden]="!(isDarkMode$ | async)"
+                src="https://greendomus.com.br/templates/yootheme/cache/logotipo-greendomus-inverso-cf39668a.png" />
+            <img class="logo" [class.hidden]="isDarkMode$ | async"
+                src="https://greendomus.com.br/templates/yootheme/cache/logotipo-greendomus-8090015b.png" />
+        </a>
+        <button mat-icon-button (click)="switchThemeMode()" [class.hidden]="!(isDarkMode$ | async)">
+            <mat-icon>light_mode</mat-icon>
+        </button>
+        <button mat-icon-button (click)="switchThemeMode()" [class.hidden]="isDarkMode$ | async">
+            <mat-icon>dark_mode</mat-icon>
+        </button>
+    </mat-toolbar>
+    <div class="content mat-app-background" fxLayout="column" fxLayoutAlign="center center">
+        <router-outlet></router-outlet>
+    </div>
+    <mat-toolbar class="bottom-bar" color="primary">
+        <a mat-button href="https://albedo.team">powered by @Albedo Team</a>
+    </mat-toolbar>
 </div>

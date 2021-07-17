@@ -15,7 +15,7 @@ import { SnackBarService } from '../snack-bar.service';
   providedIn: 'root'
 })
 export class OktaService {
-  
+
   private authServer!: AuthServerModel;
   private authClient!: OktaAuth;
 
@@ -25,7 +25,7 @@ export class OktaService {
     private snackBars: SnackBarService,
     private oAuthService: OAuthService,
   ) {
-    
+
   }
 
   public loadAuthClient(authServer: AuthServerModel) {
@@ -42,7 +42,12 @@ export class OktaService {
     this.oAuthService.createAndSaveNonce().then(
       nonce => {
         return this.signUp(username, password, nonce);
-      });
+      }).catch(
+        () => {
+          this.loadings.loading(LoadingEnum.auth_login, false);
+          this.snackBars.openBottom('Autenticação inválida');
+        }
+      );
   }
 
   private signUp(username: string, password: string, nonce: string): Promise<void> {
@@ -54,10 +59,20 @@ export class OktaService {
       }
     ).then(
       (response) => {
-        this.authorized(response, nonce);
+        this.authorized(response, nonce)
+          .then(
+            () => {
+              this.loadings.loading(LoadingEnum.auth_login, false);
+            }
+          ).catch(
+            () => {
+              this.loadings.loading(LoadingEnum.auth_login, false);
+              this.snackBars.openBottom('Autenticação inválida');
+            }
+          );
       }
     ).catch(
-      (error) => {
+      () => {
         this.loadings.loading(LoadingEnum.auth_login, false);
         this.snackBars.openBottom('Autenticação inválida');
       }
@@ -67,7 +82,6 @@ export class OktaService {
 
   private authorized(authTransaction: AuthTransaction, nonce: string): Promise<void> {
     if (authTransaction.status === 'SUCCESS') {
-      this.loadings.loading(LoadingEnum.auth_login, false);
       return this.authClient.token.getWithRedirect(
         {
           clientId: this.authServer.clientId,
@@ -77,7 +91,7 @@ export class OktaService {
           nonce: nonce,
           redirectUri: window.location.origin + '/callback'
         }
-      )
+      );
     }
     else {
       this.loadings.loading(LoadingEnum.auth_login, false);
