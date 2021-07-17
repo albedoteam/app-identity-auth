@@ -34,13 +34,7 @@ body {
 
 .page {
     display: flex;
-    flex-flow: row;
-    width: 100vw;
-    height: calc(100vh - (56px * 2));
-
-    @media screen and (min-width: var.$s-size) {
-        height: calc(100vh - (64px * 2));
-    }
+    flex-flow: column;
 }
 
 .hidden {

@@ -23,6 +23,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LoginFormComponent } from './views/login/components/form/form.component';
 import { ForgetPasswordFormComponent } from './views/forgot-password/components/form/form.component';
 import { DirectivesModule } from '../directives/directives.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import { DirectivesModule } from '../directives/directives.module';
         MatSlideToggleModule,
         MatProgressBarModule,
         DirectivesModule,
+        MatIconModule,
     ],
     declarations: [
         AuthComponent,

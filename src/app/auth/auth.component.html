@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<div class="page" fxFill>
+    <mat-card class="auth mat-elevation-z12">
+        <mat-card-content>
+            <router-outlet></router-outlet>
+            <mat-toolbar class="bottom-bar" color="primary" [mat-darker]="darkMode$ | async"
+                [mat-lighter]="!(darkMode$ | async)">
+                <a mat-button href="https://albedo.team">powered by
+                    <img [class.hidden]="!(darkMode$ | async)" src="/assets/images/albedoteam-branco.png"
+                        class="logo" />
+                    <img [class.hidden]="darkMode$ | async" src="/assets/images/albedoteam.png" class="logo" />
+                </a>
+            </mat-toolbar>
+        </mat-card-content>
+    </mat-card>
+</div>

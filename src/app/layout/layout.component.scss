@@ -15,14 +15,11 @@
     }
 
     .content {
-        height: calc(100vh - (56px * 2));
+        overflow-y: auto;
+        height: calc(100vh - (56px * 1));
 
         @media screen and(min-width: var.$s-size) {
-            height: calc(100vh - (64px * 2));
+            height: calc(100vh - (64px * 1));
         }
-    }
-
-    .bottom-bar {
-        justify-content: flex-end;
     }
 }

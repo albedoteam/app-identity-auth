@@ -1,11 +1,14 @@
 .mat-primary.mat-app-background {
     background-color: var(--primary-color);
+    color: var(--primary-lighter-color);
 }
 .mat-accent.mat-app-background {
     background-color: var(--accent-color);
+    color: var(--accent-lighter-color);
 }
 .mat-warn.mat-app-background {
     background-color: var(--warn-color);
+    color: var(--warn-lighter-color);
 }
 
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {

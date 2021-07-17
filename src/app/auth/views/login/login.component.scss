@@ -1,28 +1,15 @@
 @use "src/theme/variables" as var;
-.page {
-    justify-content: center;
 
-    .login {
-        margin: auto;
-        display: flex;
-        flex-flow: column;
-        padding: 0;
-        width: 95%;
-        max-width: 400px;
+.top-bar {
+    border-radius: 5px 5px 0 0;
+    padding: 5px 10px 0px 10px;
+}
 
-        @media screen and (min-width: var.$s-size) {
-            height: fit-content;
-        }
+.login-content {
+    padding: 10px;
+    margin-bottom: 56px;
 
-        .login-bar {
-            top: 0;
-            left: 0;
-            justify-content: center;
-        }
-
-        .login-content {
-            width: 100%;
-            margin-bottom: 40px;
-        }
+    @media screen and(min-width: var.$s-size) {
+        margin-bottom: 64px;
     }
 }

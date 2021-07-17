@@ -1,5 +1,4 @@
 @use '~@angular/material' as mat;
-@use '@angular/material' as mat;
 
 @import "https://fonts.googleapis.com/css?family=Material+Icons";
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500");
@@ -27,7 +26,7 @@ $dark-disabled-text: rgba($dark-primary-text, 0.38);
 $dark-dividers: rgba($dark-primary-text, 0.12);
 $dark-focused: rgba($dark-primary-text, 0.12);
 
-mat.$light-theme-foreground-palette: (
+$light-theme-foreground-palette: (
     base: #1d1d1b,
     divider: $dark-dividers,
     dividers: $dark-dividers,
@@ -53,7 +52,7 @@ $light-disabled-text: rgba($light-primary-text, 0.5);
 $light-dividers: rgba($light-primary-text, 0.12);
 $light-focused: rgba($light-primary-text, 0.12);
 
-mat.$dark-theme-foreground-palette: (
+$dark-theme-foreground-palette: (
     base: $light-text,
     divider: $light-dividers,
     dividers: $light-dividers,
@@ -82,7 +81,7 @@ $dark-bg-tooltip: lighten($dark-text, 20%);
 $dark-bg-alpha-4: rgba($dark-text, 0.04);
 $dark-bg-alpha-12: rgba($dark-text, 0.12);
 
-mat.$light-theme-background-palette: (
+$light-theme-background-palette: (
     background: $light-background,
     status-bar: $light-bg-darker-20,
     app-bar: $light-bg-darker-5,
@@ -110,7 +109,7 @@ $light-bg-alpha-4: rgba($light-text, 0.04);
 $light-bg-alpha-12: rgba($light-text, 0.12);
 
 // Background palette for dark themes.
-mat.$dark-theme-background-palette: (
+$dark-theme-background-palette: (
     background: $dark-background,
     status-bar: $dark-bg-lighter-20,
     app-bar: $dark-bg-lighter-5,

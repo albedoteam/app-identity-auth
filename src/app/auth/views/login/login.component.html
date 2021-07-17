@@ -1,13 +1,9 @@
-<div class="page">
-    <mat-card class="login">
-        <mat-toolbar class="login-bar" color="accent" [mat-lighter]="!(darkMode$ | async)"
-            [mat-darker]="darkMode$ | async">
-            <h3>Login</h3>
-        </mat-toolbar>
-        <mat-card-content class="login-content">
-            <at-login-form></at-login-form>
-            <at-links></at-links>
-            <at-social-media *ngIf="false"></at-social-media>
-        </mat-card-content>
-    </mat-card>
+<div class="top-bar mat-primary mat-app-background">
+    <h3>Bem vindo!</h3>
+    <h5>Autentique-se para continuar</h5>
+</div>
+<div class="login-content">
+    <at-login-form></at-login-form>
+    <at-links></at-links>
+    <at-social-media *ngIf="false"></at-social-media>
 </div>
