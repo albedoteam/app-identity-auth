@@ -13,21 +13,25 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Senha</mat-label>
-        <input formControlName="password" id="password" matInput type="password" minlength="6" maxlength="30"
+        <input formControlName="password" #password id="password" matInput type="password" minlength="6" maxlength="30"
             required />
-        <button mat-icon-button disabled matSuffix>
+        <button type="button" mat-icon-button matSuffix
+            (click)="password.type = (password.type == 'password' ? 'text' : 'password')">
             <mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
-                lock
+                {{ password.type == 'password' ? 'visibility' : 'visibility_off' }}
             </mat-icon>
         </button>
         <mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
         <mat-error *ngIf="hasError('password', 'minlength')">A senha deve ter mais que 6 caractéres</mat-error>
         <mat-error *ngIf="hasError('password', 'maxlength')">A senha deve ter menos de 30 caractéres</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="authForm.invalid || authForm.disabled">
-        Login
-    </button>
-    <mat-progress-bar class="loading" [mat-lighter]="darkMode$ | async" color="primary"
-        [mode]="(loading_auth_load$ | async) || (loading_auth_login$ | async) ? 'query' : 'determinate'">
-    </mat-progress-bar>
+    <div fxFill class="remember-me">
+        <mat-checkbox color="primary" [mat-lighter]="darkMode$ | async" [mat-darker]="!(darkMode$ | async)"
+            formControlName="rememberMe" labelPosition="after">Lembre-se de mim</mat-checkbox>
+    </div>
+    <at-loading-spinner name="auth">
+        <button fxFill mat-raised-button color="primary" [disabled]="authForm.invalid || authForm.disabled">
+            Login
+        </button>
+    </at-loading-spinner>
 </form>

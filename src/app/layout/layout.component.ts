@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DarkModeService } from 'src/services/dark-mode.service';
-import { AuthService } from '../auth/auth.service';
 import { LayoutService } from './layout.service';
 
 @Component({
@@ -20,7 +19,6 @@ export class LayoutComponent implements OnInit {
     }
 
     constructor(
-        private auths: AuthService,
         private darkModeService: DarkModeService,
         private layout: LayoutService
     ) {
@@ -28,9 +26,8 @@ export class LayoutComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.isDarkMode$ = this.darkModeService.isDarkMode$.asObservable();
 
-        this.auths.loadAccount();
+        this.isDarkMode$ = this.darkModeService.isDarkMode$;
 
         this.layout.accountName$.subscribe(
             account => {

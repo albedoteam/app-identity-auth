@@ -208,6 +208,8 @@ $light-theme: mat.define-light-theme($theme-accent, $theme-primary, $theme-warn)
 
 body {
     background-color: $light-background;
+    color: $dark-text;
+
     @include mat.all-component-themes($light-theme);
 
     &.themed {
@@ -218,6 +220,8 @@ body {
     &.dark,
     .dark {
         background-color: $dark-background;
+        color: $light-text;
+
         @include mat.all-component-themes($dark-theme);
 
         &.themed {

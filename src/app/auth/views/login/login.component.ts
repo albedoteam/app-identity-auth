@@ -20,8 +20,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger;
-
         if (this.activatedRoute.snapshot.queryParamMap.keys.length > 0) {
             this.router.navigate([],
                 {

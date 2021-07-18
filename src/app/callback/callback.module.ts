@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CallbackComponent } from './callback.component';
 import { CallbackRoutingModule } from './callback.routing.module';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ComponentLibraryModule } from '../component-library/component-library.module';
 
 @NgModule({
     imports: [
         CommonModule,
         CallbackRoutingModule,
-        MatProgressBarModule,
+        ComponentLibraryModule,
     ],
-    declarations: [CallbackComponent]
+    declarations: [CallbackComponent],
 })
 export class CallbackModule { }

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { Http401Component } from './views/http-401/http-401.component';
+import { ErrorRoutingModule } from './error.routing.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule,
+        ErrorRoutingModule,
     ],
     declarations: [Http401Component]
 })

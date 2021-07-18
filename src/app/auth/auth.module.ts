@@ -7,13 +7,13 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatInputModule } from "@angular/material/input";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCommonModule } from "@angular/material/core";
 import { AuthRoutingModule } from './auth.routing.module';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
-import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LinksComponent } from './views/login/components/links/links.component';
 import { SocialMediaComponent } from './views/login/components/social-media/social-media.component';
@@ -23,11 +23,11 @@ import { ForgetPasswordFormComponent } from './views/forgot-password/components/
 import { DirectivesModule } from '../directives/directives.module';
 import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ComponentLibraryModule } from '../component-library/component-library.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule,
         ReactiveFormsModule,
         AuthRoutingModule,
         MatCommonModule,
@@ -41,6 +41,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         DirectivesModule,
         MatIconModule,
         FlexLayoutModule,
+        ComponentLibraryModule,
+        MatCheckboxModule,
     ],
     declarations: [
         LoginComponent,

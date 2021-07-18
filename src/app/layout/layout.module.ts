@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DirectivesModule } from '../directives/directives.module';
 import { MatCardModule } from '@angular/material/card';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
@@ -20,6 +21,7 @@ import { MatCardModule } from '@angular/material/card';
         MatIconModule,
         DirectivesModule,
         MatCardModule,
+        NgxSpinnerModule,
     ],
     declarations: [LayoutComponent],
     exports: [LayoutComponent]

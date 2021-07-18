@@ -1,8 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, ValidationErrors } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable, Subscription } from 'rxjs';
+import { DarkModeService } from 'src/services/dark-mode.service';
 import { LoadingService } from 'src/services/loading.service';
 import { LoadingEnum } from 'src/services/models/loading.enum';
 import { SessionService } from 'src/services/session.service';
@@ -13,7 +15,9 @@ import { TokenService } from '../../token.service';
     templateUrl: './first-access.component.html',
     styleUrls: ['./first-access.component.scss']
 })
-export class FirstAccessComponent implements OnInit, AfterViewInit, OnChanges {
+export class FirstAccessComponent implements OnInit {
+
+    public darkMode$!: Observable<boolean>;
 
     @ViewChild("token1")
     public token1!: ElementRef<HTMLInputElement>;
@@ -28,23 +32,19 @@ export class FirstAccessComponent implements OnInit, AfterViewInit, OnChanges {
     @ViewChild("token6")
     public token6!: ElementRef<HTMLInputElement>;
 
-    public loading_load$ = this.loadings.loadingAsync(LoadingEnum.token_load);
     public loading_get$ = this.loadings.loadingAsync(LoadingEnum.token_get_token);
     public loading_change_password$ = this.loadings.loadingAsync(LoadingEnum.token_set_password);
 
     public tokenForm!: FormGroup;
     public passwordForm!: FormGroup;
 
-    public tokenValidated: boolean = false;
-
-    public pageTitle: string = '';
-
+    private accountNameSubscription!: Subscription;
     private validatedSubscription!: Subscription;
-    private loadingLoadSubscription!: Subscription;
-    private loadingGetSubscription!: Subscription;
     private loadingChangeSubscription!: Subscription;
 
     constructor(
+        private darkMode: DarkModeService,
+        private spinners: NgxSpinnerService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private loadings: LoadingService,
@@ -54,34 +54,10 @@ export class FirstAccessComponent implements OnInit, AfterViewInit, OnChanges {
     ) {
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        console.log(changes);
-    }
-
-    ngAfterViewInit(): void {
-        this.validatedSubscription = this.tokens.tokenValidatedAsync().subscribe(
-            validated => {
-                if (validated) {
-                    if (!this.tokenForm.disabled)
-                        this.tokenForm.disable();
-
-                    if (this.passwordForm.disabled)
-                        this.passwordForm.enable();
-                }
-                else {
-                    if (this.tokenForm.disabled)
-                        this.tokenForm.enable();
-
-                    if (!this.passwordForm.disabled)
-                        this.passwordForm.disable();
-                }
-            }
-        );
-
-        this.token1.nativeElement.focus();
-    }
-
     ngOnInit(): void {
+
+        this.darkMode$ = this.darkMode.isDarkMode$;
+
         this.tokenForm = new FormGroup({
             token1: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]),
             token2: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(1)]),
@@ -109,72 +85,43 @@ export class FirstAccessComponent implements OnInit, AfterViewInit, OnChanges {
             return;
         }
 
-        this.tokens.loadAccount();
+        this.validatedSubscription = this.tokens.tokenValidatedAsync().subscribe(
+            validated => {
+                if (validated) {
+                    if (!this.tokenForm.disabled)
+                        this.tokenForm.disable();
 
-        this.tokenForm.controls['token1'].valueChanges.subscribe(
-            (value: string) => {
-                if (value != '') {
-                    this.checkValidationToken();
-                    this.token2.nativeElement.focus();
-                    this.token2.nativeElement.select();
+                    if (this.passwordForm.disabled)
+                        this.passwordForm.enable();
                 }
+                else {
+                    if (this.tokenForm.disabled) {
+                        this.tokenForm.enable();
+                        this.tokenForm.reset();
+                        this.token1.nativeElement.focus();
+                    }
+
+                    if (!this.passwordForm.disabled)
+                        this.passwordForm.disable();
+                }
+
+                this.spinners.hide('check-code');
             }
         );
 
-        this.tokenForm.controls['token2'].valueChanges.subscribe(
-            (value: string) => {
-                if (value != '') {
-                    this.checkValidationToken();
-                    this.token3.nativeElement.focus();
-                    this.token3.nativeElement.select();
-                }
-            }
-        );
-
-        this.tokenForm.controls['token3'].valueChanges.subscribe(
-            (value: string) => {
-                if (value != '') {
-                    this.checkValidationToken();
-                    this.token4.nativeElement.focus();
-                    this.token4.nativeElement.select();
-                }
-            }
-        );
-
-        this.tokenForm.controls['token4'].valueChanges.subscribe(
-            (value: string) => {
-                if (value != '') {
-                    this.checkValidationToken();
-                    this.token5.nativeElement.focus();
-                    this.token5.nativeElement.select();
-                }
-            }
-        );
-
-        this.tokenForm.controls['token5'].valueChanges.subscribe(
-            (value: string) => {
-                if (value != '') {
-                    this.checkValidationToken();
-                    this.token6.nativeElement.focus();
-                    this.token6.nativeElement.select();
-                }
-            }
-        );
-
-        this.tokenForm.controls['token6'].valueChanges.subscribe(
-            (value: string) => {
-                if (value != '') {
-                    this.checkValidationToken();
-                    this.token1.nativeElement.focus();
-                    this.token1.nativeElement.select();
-                }
-            }
-        );
-
-        this.sessions.accountNameAsync().subscribe(
+        this.accountNameSubscription = this.sessions.accountNameAsync().subscribe(
             accountName => {
                 if (accountName)
                     this.title.setTitle(`${accountName} - Primeiro acesso`);
+            }
+        );
+
+        this.loadingChangeSubscription = this.loading_change_password$.subscribe(
+            loading => {
+                if (loading)
+                    this.spinners.show('password-recovery');
+                else
+                    this.spinners.hide('password-recovery');
             }
         );
     }
@@ -184,7 +131,7 @@ export class FirstAccessComponent implements OnInit, AfterViewInit, OnChanges {
 
         if (!parent) return null;
 
-        if (confirmationControl.value == parent.value["password"]!.value) {
+        if (confirmationControl.value == parent.value["password"]) {
             confirmationControl.setErrors(null);
             return null;
         }
@@ -197,20 +144,31 @@ export class FirstAccessComponent implements OnInit, AfterViewInit, OnChanges {
         if (this.tokenForm.invalid || this.tokenForm.disabled)
             return;
 
+        const token1 = this.tokenForm.value["token1"],
+            token2 = this.tokenForm.value["token2"],
+            token3 = this.tokenForm.value["token3"],
+            token4 = this.tokenForm.value["token4"],
+            token5 = this.tokenForm.value["token5"],
+            token6 = this.tokenForm.value["token6"];
+
+        this.tokenForm.disable();
+
+        this.spinners.show('check-code');
+
         this.tokens.checkToken(
             "".concat(
-                this.tokenForm.value["token1"],
-                this.tokenForm.value["token2"],
-                this.tokenForm.value["token3"],
-                this.tokenForm.value["token4"],
-                this.tokenForm.value["token5"],
-                this.tokenForm.value["token6"]
+                token1,
+                token2,
+                token3,
+                token4,
+                token5,
+                token6
             )
         );
     }
 
     public alterarSenha(): void {
-        if (this.passwordForm.invalid)
+        if (this.passwordForm.invalid || this.passwordForm.disabled)
             return;
 
         this.tokens.setPassword(this.passwordForm.value["password"]);

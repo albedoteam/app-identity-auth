@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AuthTransaction, OktaAuth, TokenResponse } from "@okta/okta-auth-js"
 import { OAuthService } from 'angular-oauth2-oidc';
-import { Subscription } from 'rxjs';
-import { AccountService } from '../accounts/account.service';
 import { DarkModeService } from '../dark-mode.service';
-import { AuthServerService } from '../identity/auth-server.service';
 import { AuthServerModel } from '../identity/models/auth-server.model';
 import { LoadingService } from '../loading.service';
 import { LoadingEnum } from '../models/loading.enum';
-import { StorageEnum } from '../models/storage.enum';
 import { SessionService } from '../session.service';
 import { SnackBarService } from '../snack-bar.service';
 

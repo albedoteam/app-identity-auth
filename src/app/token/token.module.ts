@@ -15,6 +15,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DirectivesModule } from '../directives/directives.module';
 import { NgxMaskModule } from 'ngx-mask';
+import { ComponentLibraryModule } from '../component-library/component-library.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     imports: [
@@ -31,7 +33,9 @@ import { NgxMaskModule } from 'ngx-mask';
         MatProgressBarModule,
         FlexLayoutModule,
         DirectivesModule,
+        MatIconModule,
         NgxMaskModule.forRoot(),
+        ComponentLibraryModule,
     ],
     declarations: [FirstAccessComponent, PasswordRecoveryComponent]
 })
