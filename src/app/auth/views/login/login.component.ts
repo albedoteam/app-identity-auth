@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Observable } from 'rxjs';
-import { DarkModeService } from 'src/services/dark-mode.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from 'src/services/session.service';
 
 @Component({
@@ -11,18 +10,25 @@ import { SessionService } from 'src/services/session.service';
 })
 export class LoginComponent implements OnInit {
 
-    public darkMode$!: Observable<boolean>;
-
     constructor(
-        private darkerMode: DarkModeService,
         private title: Title,
         private sessions: SessionService,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
     ) {
 
     }
 
     ngOnInit(): void {
-        this.darkMode$ = this.darkerMode.isDarkMode$.asObservable();
+        debugger;
+
+        if (this.activatedRoute.snapshot.queryParamMap.keys.length > 0) {
+            this.router.navigate([],
+                {
+                    queryParams: null,
+                    replaceUrl: true
+                });
+        }
 
         this.sessions.accountNameAsync().subscribe(
             accountName => {

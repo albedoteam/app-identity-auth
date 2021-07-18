@@ -8,6 +8,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DirectivesModule } from '../directives/directives.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
@@ -18,6 +19,7 @@ import { DirectivesModule } from '../directives/directives.module';
         FlexLayoutModule,
         MatIconModule,
         DirectivesModule,
+        MatCardModule,
     ],
     declarations: [LayoutComponent],
     exports: [LayoutComponent]

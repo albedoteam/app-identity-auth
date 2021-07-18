@@ -7,19 +7,68 @@
 
     .top-bar {
         .logo {
-            width: 180px;
-            max-width: 180px;
-            height: 50px;
-            max-height: 50px;
+            width: 162px;
+            max-width: 162px;
+            height: 45px;
+            max-height: 45px;
         }
     }
 
-    .content {
+    .container {
         overflow-y: auto;
-        height: calc(100vh - (56px * 1));
+        height: 100vh;
 
-        @media screen and(min-width: var.$s-size) {
-            height: calc(100vh - (64px * 1));
+        .page {
+            justify-content: center;
+            padding: 10px;
+            width: calc(100% - 20px);
+
+            .auth {
+                margin-left: auto;
+                margin-right: auto;
+                padding: 0;
+                width: 100%;
+                max-width: 400px;
+                margin-top: 10vh;
+                @media screen and(min-width: var.$s-size) {
+                    margin-top: 15vh;
+                }
+
+                .top-bar {
+                    border-radius: 5px 5px 0 0;
+                    .logo {
+                        width: 162px;
+                        max-width: 162px;
+                        height: 45px;
+                        max-height: 45px;
+                        object-fit: contain;
+                    }
+                }
+
+                .content {
+                    padding: 20px;
+                    width: calc(100% - 40px);
+                    position: relative;
+                }
+
+                .bottom-bar {
+                    justify-content: flex-end;
+                    border-radius: 0 0 5px 5px;
+                    position: relative;
+
+                    .logo {
+                        width: 81px;
+                        max-width: 81px;
+                        height: 22.5px;
+                        max-height: 22.5px;
+                        object-fit: contain;
+                    }
+
+                    .powered-by {
+                        transform: translateY(-3.5px);
+                    }
+                }
+            }
         }
     }
 }

@@ -60,6 +60,7 @@ export class CallbackService {
 
     if (this.sessions.accountId() == null)
       this.router.navigate(['/error', '401']);
+
     this.sessions.accountIdAsync().subscribe(
       accountId => {
         if (accountId) {

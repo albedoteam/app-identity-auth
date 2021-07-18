@@ -15,6 +15,7 @@ export class AppGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        debugger;
         if (route.queryParams.account && route.queryParams.callbackUrl) {
             this.sessions.setAccountId(route.queryParams.account);
             this.sessions.setCallbackUrl(route.queryParams.callbackUrl);

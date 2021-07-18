@@ -11,11 +11,13 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [	
+    AppComponent,
+      PageNotFoundComponent
+   ],
   imports: [
     HttpClientModule,
     CommonModule,

@@ -1,10 +1,13 @@
-<form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate>
+<form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate fxFill fxLayout="column"
+    fxLayoutAlign="start">
     <mat-form-field appearance="outline">
         <mat-label>Usuário</mat-label>
         <input formControlName="username" id="username" matInput type="text" required email />
-        <mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
-            person
-        </mat-icon>
+        <button mat-icon-button disabled matSuffix>
+            <mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
+                person
+            </mat-icon>
+        </button>
         <mat-error *ngIf="hasError('username', 'required')">O login é obrigatório</mat-error>
         <mat-error *ngIf="hasError('username', 'email')">O login deve ser um e-mail válido</mat-error>
     </mat-form-field>
@@ -12,15 +15,16 @@
         <mat-label>Senha</mat-label>
         <input formControlName="password" id="password" matInput type="password" minlength="6" maxlength="30"
             required />
-        <mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
-            lock
-        </mat-icon>
+        <button mat-icon-button disabled matSuffix>
+            <mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
+                lock
+            </mat-icon>
+        </button>
         <mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
-        <mat-error *ngIf="hasError('password', 'minlength')">O login deve ter mais que 6 caractéres</mat-error>
-        <mat-error *ngIf="hasError('password', 'maxlength')">O login deve ter menos de 30 caractéres</mat-error>
+        <mat-error *ngIf="hasError('password', 'minlength')">A senha deve ter mais que 6 caractéres</mat-error>
+        <mat-error *ngIf="hasError('password', 'maxlength')">A senha deve ter menos de 30 caractéres</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" [disabled]="authForm.invalid || authForm.disabled"
-        [mat-darker]="darkMode$ | async">
+    <button mat-raised-button color="primary" [disabled]="authForm.invalid || authForm.disabled">
         Login
     </button>
     <mat-progress-bar class="loading" [mat-lighter]="darkMode$ | async" color="primary"

@@ -24,12 +24,12 @@ body {
     --text-accent-color: #7aad4c;
     --text-accent-darker-color: #d7e6c9;
     --text-accent-lighter-color: #5d9333;
-    --warn-color: #ff0000;
-    --warn-darker-color: #ff0000;
-    --warn-lighter-color: #ffb3b3;
-    --text-warn-color: #ff0000;
-    --text-warn-darker-color: #ffb3b3;
-    --text-warn-lighter-color: #ff0000;
+    --warn-color: #da3535;
+    --warn-darker-color: #cb2222;
+    --warn-lighter-color: #f4c2c2;
+    --text-warn-color: #da3535;
+    --text-warn-darker-color: #f4c2c2;
+    --text-warn-lighter-color: #cb2222;
 }
 
 .page {
@@ -39,4 +39,8 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+router-outlet ~ * {
+    width: 100%;
 }

@@ -2,8 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 
-import { AuthComponent } from './auth.component';
-
 import { MatCardModule } from "@angular/material/card";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
@@ -24,6 +22,7 @@ import { LoginFormComponent } from './views/login/components/form/form.component
 import { ForgetPasswordFormComponent } from './views/forgot-password/components/form/form.component';
 import { DirectivesModule } from '../directives/directives.module';
 import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     imports: [
@@ -41,9 +40,9 @@ import { MatIconModule } from '@angular/material/icon';
         MatProgressBarModule,
         DirectivesModule,
         MatIconModule,
+        FlexLayoutModule,
     ],
     declarations: [
-        AuthComponent,
         LoginComponent,
         RegisterComponent,
         ForgotPasswordComponent,
