@@ -1,20 +1,5 @@
 @use "src/theme/variables" as var;
 
 .links {
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-
-    padding-left: 20px;
-    padding-right: 20px;
-
-    @media screen and (min-width: var.$s-size) {
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-
-    @media screen and (min-width: var.$g-size) {
-        padding-left: 20%;
-        padding-right: 20%;
-    }
+    margin-top: 10px;
 }

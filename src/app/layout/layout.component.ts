@@ -1,27 +1,43 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DarkModeService } from 'src/services/dark-mode.service';
 import { LayoutService } from './layout.service';
 
 @Component({
-  selector: 'at-layout',
-  templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+    selector: 'at-layout',
+    templateUrl: './layout.component.html',
+    styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
 
-  public accountName: string;
+    public isDarkMode$!: Observable<boolean>;
 
-  constructor(
-    private layout: LayoutService
-  ) {
-    this.accountName = '';
-  }
+    public accountName: string;
 
-  ngOnInit() {
-    this.layout.accountName.subscribe(
-      account => {
-        if (account)
-          this.accountName = account
-      }
-    );
-  }
+    get barColor(): string {
+        return location.pathname.includes('error') ? 'warn' : 'primary';
+    }
+
+    constructor(
+        private darkModeService: DarkModeService,
+        private layout: LayoutService
+    ) {
+        this.accountName = '';
+    }
+
+    public ngOnInit(): void {
+
+        this.isDarkMode$ = this.darkModeService.isDarkMode$;
+
+        this.layout.accountName$.subscribe(
+            account => {
+                if (account)
+                    this.accountName = account
+            }
+        );
+    }
+
+    public switchThemeMode(): void {
+        this.darkModeService.toggle();
+    }
 }

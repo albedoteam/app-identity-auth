@@ -1,1 +1,5 @@
-<at-layout></at-layout>
+<at-loading-spinner name="layout-spinner" [fullscreen]="true" text="Carregando configurações...">
+</at-loading-spinner>
+<div class="main" fxLayout="column" [class.hidden]="(loaded$ | async) == 'loading'">
+    <at-layout></at-layout>
+</div>

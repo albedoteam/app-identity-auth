@@ -1,14 +1,23 @@
-<form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate>
-  <mat-form-field>
-    <mat-label>E-mail para recuperação</mat-label>
-    <input formControlName="username" id="username" matInput type="text" required email />
-    <mat-error *ngIf="hasError('username', 'required')">O e-mail é obrigatório</mat-error>
-    <mat-error *ngIf="hasError('username', 'email')">O e-mail deve ser um válido</mat-error>
-  </mat-form-field>
-  <button mat-raised-button color="accent" [disabled]="authForm.invalid">
-    Recuperar senha
-  </button>
-  <mat-progress-bar class="loading"
-    [mode]="(loading_auth_load$ | async) || (loading_auth_login$ | async) ? 'query' : 'determinate'">
-  </mat-progress-bar>
+<form [formGroup]="forgotMyPasswordForm" (submit)="login($event)" novalidate fxFill fxLayout="column"
+    fxLayoutAlign="start">
+    <mat-form-field appearance="outline">
+        <mat-label>E-mail para recuperação</mat-label>
+        <input formControlName="email" id="email" matInput type="text" required email />
+        <button mat-icon-button disabled matSuffix>
+            <mat-icon>alternate_email</mat-icon>
+        </button>
+        <mat-error *ngIf="hasError('email', 'required')">O e-mail é obrigatório</mat-error>
+        <mat-error *ngIf="hasError('email', 'email')">O e-mail deve ser um válido</mat-error>
+    </mat-form-field>
+    <at-loading-spinner name="forgot-my-password">
+        <div fxLayout="row" fxLayout="space-between center" fxLayoutGap="5px">
+            <button type="button" fxFlex mat-button color="accent" [routerLink]="['/auth','login']">
+                Voltar
+            </button>
+            <button type="submit" fxFlex mat-raised-button color="primary"
+                [disabled]="forgotMyPasswordForm.invalid || forgotMyPasswordForm.disabled">
+                Recuperar senha
+            </button>
+        </div>
+    </at-loading-spinner>
 </form>

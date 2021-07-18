@@ -9,11 +9,11 @@ import { SessionService } from 'src/services/session.service';
 })
 export class LayoutService {
 
-  public accountName: Observable<string | null>;
+  public accountName$: Observable<string | null>;
 
   constructor(
     private sessions: SessionService,
   ) {
-    this.accountName = sessions.accountNameAsync();
+    this.accountName$ = sessions.accountNameAsync();
   }
 }
