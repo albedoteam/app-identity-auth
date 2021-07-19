@@ -1,5 +1,5 @@
 export class ChangePasswordModel {
-    accountId!: string;
-    id!: string;
-    password!: string;
+	accountId!: string;
+	id!: string;
+	password!: string;
 }

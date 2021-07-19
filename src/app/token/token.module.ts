@@ -19,24 +19,24 @@ import { ComponentLibraryModule } from '../component-library/component-library.m
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        ReactiveFormsModule,
-        TokenRoutingModule,
-        MatCommonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatButtonModule,
-        MatProgressBarModule,
-        FlexLayoutModule,
-        DirectivesModule,
-        MatIconModule,
-        NgxMaskModule.forRoot(),
-        ComponentLibraryModule,
-    ],
-    declarations: [FirstAccessComponent, PasswordRecoveryComponent]
+	imports: [
+		CommonModule,
+		RouterModule,
+		ReactiveFormsModule,
+		TokenRoutingModule,
+		MatCommonModule,
+		MatInputModule,
+		MatFormFieldModule,
+		MatToolbarModule,
+		MatCardModule,
+		MatButtonModule,
+		MatProgressBarModule,
+		FlexLayoutModule,
+		DirectivesModule,
+		MatIconModule,
+		NgxMaskModule.forRoot(),
+		ComponentLibraryModule,
+	],
+	declarations: [FirstAccessComponent, PasswordRecoveryComponent]
 })
 export class TokenModule { }

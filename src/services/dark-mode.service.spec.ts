@@ -4,13 +4,13 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { DarkModeService } from './dark-mode.service';
 
 describe('Service: DarkMode', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [DarkModeService]
-    });
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [DarkModeService]
+		});
+	});
 
-  it('should ...', inject([DarkModeService], (service: DarkModeService) => {
-    expect(service).toBeTruthy();
-  }));
+	it('should ...', inject([DarkModeService], (service: DarkModeService) => {
+		expect(service).toBeTruthy();
+	}));
 });

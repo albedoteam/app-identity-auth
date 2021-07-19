@@ -4,13 +4,13 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { TokenService } from './token.service';
 
 describe('Service: Token', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [TokenService]
-    });
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({
+			providers: [TokenService]
+		});
+	});
 
-  it('should ...', inject([TokenService], (service: TokenService) => {
-    expect(service).toBeTruthy();
-  }));
+	it('should ...', inject([TokenService], (service: TokenService) => {
+		expect(service).toBeTruthy();
+	}));
 });

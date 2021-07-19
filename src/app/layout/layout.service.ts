@@ -5,15 +5,15 @@ import { AccountModel } from 'src/services/accounts/models/account.model';
 import { SessionService } from 'src/services/session.service';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class LayoutService {
 
-  public accountName$: Observable<string | null>;
+	public accountName$: Observable<string | null>;
 
-  constructor(
-    private sessions: SessionService,
-  ) {
-    this.accountName$ = sessions.accountNameAsync();
-  }
+	constructor(
+		private sessions: SessionService,
+	) {
+		this.accountName$ = sessions.accountNameAsync();
+	}
 }

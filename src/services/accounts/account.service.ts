@@ -4,16 +4,16 @@ import { BaseService } from '../base/base.service';
 import { AccountModel } from './models/account.model';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class AccountService extends BaseService<AccountModel> {
 
-  constructor(
-    private injector: Injector
-  ) {
-    super(
-      environment.accounts,
-      injector
-    );
-  }
+	constructor(
+		private injector: Injector
+	) {
+		super(
+			environment.accounts,
+			injector
+		);
+	}
 }

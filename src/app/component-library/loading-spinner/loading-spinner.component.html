@@ -1,11 +1,11 @@
 <div [ngStyle]="{ position: fullscreen ? 'absolute' : 'relative'}">
-    <ngx-spinner *ngIf="(isDarkMode$ | async)" [name]="name" bdColor="var(--primary-darker-color)"
-        color="var(--primary-lighter-color)" size="default" [fullScreen]="fullscreen" type="ball-pulse-sync">
-        <h5 *ngIf="text">{{ text }}</h5>
-    </ngx-spinner>
-    <ngx-spinner *ngIf="!(isDarkMode$ | async)" [name]="name" bdColor="var(--primary-lighter-color)"
-        color="var(--primary-darker-color)" size="default" [fullScreen]="fullscreen" type="ball-pulse-sync">
-        <h5 *ngIf="text">{{ text }}</h5>
-    </ngx-spinner>
-    <ng-content></ng-content>
+	<ngx-spinner *ngIf="(isDarkMode$ | async)" [name]="name" bdColor="var(--primary-darker-color)"
+		color="var(--primary-lighter-color)" size="default" [fullScreen]="fullscreen" type="ball-pulse-sync">
+		<h5 *ngIf="text">{{ text }}</h5>
+	</ngx-spinner>
+	<ngx-spinner *ngIf="!(isDarkMode$ | async)" [name]="name" bdColor="var(--primary-lighter-color)"
+		color="var(--primary-darker-color)" size="default" [fullScreen]="fullscreen" type="ball-pulse-sync">
+		<h5 *ngIf="text">{{ text }}</h5>
+	</ngx-spinner>
+	<ng-content></ng-content>
 </div>
