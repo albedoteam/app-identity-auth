@@ -38,8 +38,6 @@ export class PasswordRecoveryComponent implements OnInit {
     public tokenForm!: FormGroup;
     public passwordForm!: FormGroup;
 
-    public pageTitle: string = '';
-
     private accountNameSubscription!: Subscription;
     private validatedSubscription!: Subscription;
     private loadingChangeSubscription!: Subscription;
@@ -83,8 +81,6 @@ export class PasswordRecoveryComponent implements OnInit {
                     queryParams: null,
                     replaceUrl: true
                 });
-
-            return;
         }
 
         this.validatedSubscription = this.tokens.tokenValidatedAsync().subscribe(

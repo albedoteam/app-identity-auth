@@ -81,8 +81,6 @@ export class FirstAccessComponent implements OnInit {
                     queryParams: null,
                     replaceUrl: true
                 });
-
-            return;
         }
 
         this.validatedSubscription = this.tokens.tokenValidatedAsync().subscribe(
