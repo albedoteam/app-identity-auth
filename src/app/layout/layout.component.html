@@ -1,38 +1,38 @@
-    <div class="container mat-app-background" fxLayout="column" fxLayoutAlign="start">
-        <div class="page">
-            <mat-card class="auth mat-elevation-z12">
-                <mat-card-content>
-                    <mat-toolbar class="top-bar" [color]="barColor" [mat-darker]="isDarkMode$ | async"
-                        [mat-lighter]="!(isDarkMode$ | async)" fxLayout="row" fxLayoutAlign="space-between center">
-                        <a mat-button href="https://greendomus.com.br">
-                            <img class="logo" [class.hidden]="!(isDarkMode$ | async)"
-                                src="https://greendomus.com.br/templates/yootheme/cache/logotipo-greendomus-inverso-cf39668a.png" />
-                            <img class="logo" [class.hidden]="isDarkMode$ | async"
-                                src="https://greendomus.com.br/templates/yootheme/cache/logotipo-greendomus-8090015b.png" />
-                        </a>
-                        <button mat-icon-button (click)="switchThemeMode()" [class.hidden]="!(isDarkMode$ | async)">
-                            <mat-icon>light_mode</mat-icon>
-                        </button>
-                        <button mat-icon-button (click)="switchThemeMode()" [class.hidden]="isDarkMode$ | async">
-                            <mat-icon>dark_mode</mat-icon>
-                        </button>
-                    </mat-toolbar>
-                    <div class="content">
-                        <router-outlet></router-outlet>
-                    </div>
-                    <mat-toolbar class="bottom-bar" [color]="barColor" [mat-darker]="isDarkMode$ | async"
-                        [mat-lighter]="!(isDarkMode$ | async)">
-                        <a mat-button href="https://albedo.team">
-                            <div fxLayout="row" fxLayoutAlign="start center">
-                                <div class="powered-by">powered by</div>
-                                <img [class.hidden]="!(isDarkMode$ | async)" src="/assets/images/albedoteam-branco.png"
-                                    class="logo" />
-                                <img [class.hidden]="isDarkMode$ | async" src="/assets/images/albedoteam.png"
-                                    class="logo" />
-                            </div>
-                        </a>
-                    </mat-toolbar>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
+<div class="container mat-app-background" fxLayout="column" fxLayoutAlign="start">
+	<div class="page">
+		<mat-card class="auth mat-elevation-z12">
+			<mat-card-content>
+				<mat-toolbar class="top-bar" [color]="barColor" [mat-darker]="isDarkMode$ | async"
+					[mat-lighter]="!(isDarkMode$ | async)" fxLayout="row" fxLayoutAlign="space-between center">
+					<a mat-button href="https://greendomus.com.br">
+						<img class="logo" [class.hidden]="!(isDarkMode$ | async)"
+							src="https://greendomus.com.br/templates/yootheme/cache/logotipo-greendomus-inverso-cf39668a.png" />
+						<img class="logo" [class.hidden]="isDarkMode$ | async"
+							src="https://greendomus.com.br/templates/yootheme/cache/logotipo-greendomus-8090015b.png" />
+					</a>
+					<button mat-icon-button (click)="switchThemeMode()" [class.hidden]="!(isDarkMode$ | async)">
+						<mat-icon>light_mode</mat-icon>
+					</button>
+					<button mat-icon-button (click)="switchThemeMode()" [class.hidden]="isDarkMode$ | async">
+						<mat-icon>dark_mode</mat-icon>
+					</button>
+				</mat-toolbar>
+				<div class="content">
+					<router-outlet></router-outlet>
+				</div>
+				<mat-toolbar class="bottom-bar" [color]="barColor" [mat-darker]="isDarkMode$ | async"
+					[mat-lighter]="!(isDarkMode$ | async)">
+					<a mat-button href="https://albedo.team">
+						<div fxLayout="row" fxLayoutAlign="start center">
+							<div class="powered-by">powered by</div>
+							<img [class.hidden]="!(isDarkMode$ | async)" src="/assets/images/albedoteam-branco.png"
+								class="logo" />
+							<img [class.hidden]="isDarkMode$ | async" src="/assets/images/albedoteam.png"
+								class="logo" />
+						</div>
+					</a>
+				</mat-toolbar>
+			</mat-card-content>
+		</mat-card>
+	</div>
+</div>

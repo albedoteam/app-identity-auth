@@ -1,4 +1,4 @@
 export class CreatePasswordRecoveryModel {
-    accountId!: string;
-    userEmail!: string;
+	accountId!: string;
+	userEmail!: string;
 }

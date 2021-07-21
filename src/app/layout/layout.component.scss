@@ -1,60 +1,60 @@
 @use "src/theme/variables" as var;
 
 .container {
-    overflow-y: auto;
-    height: 100vh;
+	overflow-y: auto;
+	height: 100vh;
 
-    .page {
-        position: relative;
-        justify-content: center;
-        padding: 10px;
-        width: calc(100% - 20px);
+	.page {
+		position: relative;
+		justify-content: center;
+		padding: 10px;
+		width: calc(100% - 20px);
 
-        .auth {
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 10vh;
-            @media screen and(min-width: var.$s-size) {
-                margin-top: 15vh;
-            }
+		.auth {
+			margin-left: auto;
+			margin-right: auto;
+			padding: 0;
+			width: 100%;
+			max-width: 400px;
+			margin-top: 10vh;
+			@media screen and(min-width: var.$s-size) {
+				margin-top: 15vh;
+			}
 
-            .top-bar {
-                border-radius: 5px 5px 0 0;
-                .logo {
-                    width: 162px;
-                    max-width: 162px;
-                    height: 45px;
-                    max-height: 45px;
-                    object-fit: contain;
-                }
-            }
+			.top-bar {
+				border-radius: 5px 5px 0 0;
+				.logo {
+					width: 162px;
+					max-width: 162px;
+					height: 45px;
+					max-height: 45px;
+					object-fit: contain;
+				}
+			}
 
-            .content {
-                padding: 20px;
-                width: calc(100% - 40px);
-                position: relative;
-            }
+			.content {
+				padding: 20px;
+				width: calc(100% - 40px);
+				position: relative;
+			}
 
-            .bottom-bar {
-                justify-content: flex-end;
-                border-radius: 0 0 5px 5px;
-                position: relative;
+			.bottom-bar {
+				justify-content: flex-end;
+				border-radius: 0 0 5px 5px;
+				position: relative;
 
-                .logo {
-                    width: 81px;
-                    max-width: 81px;
-                    height: 22.5px;
-                    max-height: 22.5px;
-                    object-fit: contain;
-                }
+				.logo {
+					width: 81px;
+					max-width: 81px;
+					height: 22.5px;
+					max-height: 22.5px;
+					object-fit: contain;
+				}
 
-                .powered-by {
-                    transform: translateY(-3.5px);
-                }
-            }
-        }
-    }
+				.powered-by {
+					transform: translateY(-3.5px);
+				}
+			}
+		}
+	}
 }

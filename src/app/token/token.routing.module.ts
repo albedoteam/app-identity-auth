@@ -4,19 +4,19 @@ import { FirstAccessComponent } from './views/first-access/first-access.componen
 import { PasswordRecoveryComponent } from './views/password-recovery/password-recovery.component';
 
 const routes: Routes = [
-    {
-        path: "first-access",
-        component: FirstAccessComponent
-    },
-    {
-        path: "password-recovery",
-        component: PasswordRecoveryComponent
-    },
+	{
+		path: "first-access",
+		component: FirstAccessComponent
+	},
+	{
+		path: "password-recovery",
+		component: PasswordRecoveryComponent
+	},
 ];
 
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
 export class TokenRoutingModule { }

@@ -1,3 +1,3 @@
 export enum ProviderEnum {
-    Okta
+	Okta
 }

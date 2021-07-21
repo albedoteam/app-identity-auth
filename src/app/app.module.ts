@@ -15,23 +15,23 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ComponentLibraryModule } from './component-library/component-library.module';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        PageNotFoundComponent
-    ],
-    imports: [
-        HttpClientModule,
-        CommonModule,
-        RouterModule,
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatSnackBarModule,
-        LayoutModule,
-        OAuthModule.forRoot(),
-        ComponentLibraryModule
-    ],
-    bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+	declarations: [
+		AppComponent,
+		PageNotFoundComponent
+	],
+	imports: [
+		HttpClientModule,
+		CommonModule,
+		RouterModule,
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatSnackBarModule,
+		LayoutModule,
+		OAuthModule.forRoot(),
+		ComponentLibraryModule
+	],
+	bootstrap: [AppComponent],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

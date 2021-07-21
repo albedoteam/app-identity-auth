@@ -4,11 +4,11 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        NgxSpinnerModule,
-    ],
-    declarations: [LoadingSpinnerComponent],
-    exports: [LoadingSpinnerComponent]
+	imports: [
+		CommonModule,
+		NgxSpinnerModule,
+	],
+	declarations: [LoadingSpinnerComponent],
+	exports: [LoadingSpinnerComponent]
 })
 export class ComponentLibraryModule { }

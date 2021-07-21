@@ -14,95 +14,95 @@ import { SessionService } from 'src/services/session.service';
 import { SnackBarService } from 'src/services/snack-bar.service';
 
 @Injectable({
-    providedIn: 'root'
+	providedIn: 'root'
 })
 export class IdentityService {
 
-    public loaded$: BehaviorSubject<'loading' | 'not-loaded' | 'loaded'>;
+	public loaded$: BehaviorSubject<'loading' | 'not-loaded' | 'loaded'>;
 
-    public account$: BehaviorSubject<AccountModel | null>;
+	public account$: BehaviorSubject<AccountModel | null>;
 
-    public authServer$: BehaviorSubject<AuthServerModel | null>;
+	public authServer$: BehaviorSubject<AuthServerModel | null>;
 
-    private accountSubscription!: Subscription;
+	private accountSubscription!: Subscription;
 
-    private authServerSubscription!: Subscription;
+	private authServerSubscription!: Subscription;
 
-    constructor(
-        private sessions: SessionService,
-        private snackBars: SnackBarService,
-        private loadings: LoadingService,
-        private accounts: AccountService,
-        private authServers: AuthServerService,
-        private passwordRecoverys: PasswordRecoveryService,
-        private users: UserService,
-        private okta: OktaService,
-        private router: Router
-    ) {
-        this.loaded$ = new BehaviorSubject<'loading' | 'not-loaded' | 'loaded'>('loading');
+	constructor(
+		private sessions: SessionService,
+		private snackBars: SnackBarService,
+		private loadings: LoadingService,
+		private accounts: AccountService,
+		private authServers: AuthServerService,
+		private passwordRecoverys: PasswordRecoveryService,
+		private users: UserService,
+		private okta: OktaService,
+		private router: Router
+	) {
+		this.loaded$ = new BehaviorSubject<'loading' | 'not-loaded' | 'loaded'>('loading');
 
-        this.account$ = new BehaviorSubject<AccountModel | null>(null);
+		this.account$ = new BehaviorSubject<AccountModel | null>(null);
 
-        this.authServer$ = new BehaviorSubject<AuthServerModel | null>(null);
+		this.authServer$ = new BehaviorSubject<AuthServerModel | null>(null);
 
-        this.accountSubscription = this.account$.subscribe(
-            account => {
-                if (account) {
-                    this.sessions.setAccountName(account.displayName);
-                    this.loadAuthServer(account.id);
-                }
-            }
-        );
+		this.accountSubscription = this.account$.subscribe(
+			account => {
+				if (account) {
+					this.sessions.setAccountName(account.displayName);
+					this.loadAuthServer(account.id);
+				}
+			}
+		);
 
-        this.authServerSubscription = this.authServer$.subscribe(
-            authServer => {
-                if (authServer) {
-                    this.okta.loadAuthClient(authServer);
-                    this.loaded$.next('loaded');
-                }
-            }
-        );
-    }
+		this.authServerSubscription = this.authServer$.subscribe(
+			authServer => {
+				if (authServer) {
+					this.okta.loadAuthClient(authServer);
+					this.loaded$.next('loaded');
+				}
+			}
+		);
+	}
 
-    public loadAccount(): void {
+	public loadAccount(): void {
 
-        if (this.loaded$.getValue() != 'loaded') {
-            this.loadings.loading(LoadingEnum.auth_load, true);
+		if (this.loaded$.getValue() != 'loaded') {
+			this.loadings.loading(LoadingEnum.auth_load, true);
 
-            if (this.sessions.accountId() == null)
-                this.router.navigate(['/error', '401']);
+			if (this.sessions.accountId() == null)
+				this.router.navigate(['/error', '401']);
 
-            this.sessions.accountIdAsync().subscribe(
-                accountId => {
-                    if (accountId) {
-                        this.accounts.get(accountId!).subscribe(
-                            account => {
-                                if (account)
-                                    this.account$.next(account);
-                                else {
-                                    this.router.navigate(['/error', '401']);
-                                    this.loadings.loading(LoadingEnum.auth_load, false);
-                                }
-                            }
-                        );
-                    }
-                }
-            );
-        }
-    }
+			this.sessions.accountIdAsync().subscribe(
+				accountId => {
+					if (accountId) {
+						this.accounts.get(accountId!).subscribe(
+							account => {
+								if (account)
+									this.account$.next(account);
+								else {
+									this.router.navigate(['/error', '401']);
+									this.loadings.loading(LoadingEnum.auth_load, false);
+								}
+							}
+						);
+					}
+				}
+			);
+		}
+	}
 
-    public loadAuthServer(accountId: string): void {
-        var query = this.authServers.defaultQuery;
-        query.pageSize = 1;
-        this.authServers.list(query, `accountId=${accountId}`).subscribe(
-            pagedAuthServer => {
-                if (pagedAuthServer.recordsInPage > 0)
-                    this.authServer$.next(pagedAuthServer.items[0]);
-                else
-                    this.router.navigate(['/error', '401']);
+	public loadAuthServer(accountId: string): void {
+		var query = this.authServers.defaultQuery;
+		query.pageSize = 1;
+		this.authServers.list(query, `accountId=${accountId}`).subscribe(
+			pagedAuthServer => {
+				if (pagedAuthServer.recordsInPage > 0)
+					this.authServer$.next(pagedAuthServer.items[0]);
+				else
+					this.router.navigate(['/error', '401']);
 
-                this.loadings.loading(LoadingEnum.auth_load, false);
-            }
-        );
-    }
+				this.loadings.loading(LoadingEnum.auth_load, false);
+			}
+		);
+	}
 }

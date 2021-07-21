@@ -26,33 +26,33 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ComponentLibraryModule } from '../component-library/component-library.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        AuthRoutingModule,
-        MatCommonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatButtonModule,
-        MatSlideToggleModule,
-        MatProgressBarModule,
-        DirectivesModule,
-        MatIconModule,
-        FlexLayoutModule,
-        ComponentLibraryModule,
-        MatCheckboxModule,
-    ],
-    declarations: [
-        LoginComponent,
-        RegisterComponent,
-        ForgotPasswordComponent,
-        LoginFormComponent,
-        LinksComponent,
-        SocialMediaComponent,
-        ForgetPasswordFormComponent,
-    ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+	imports: [
+		CommonModule,
+		ReactiveFormsModule,
+		AuthRoutingModule,
+		MatCommonModule,
+		MatInputModule,
+		MatFormFieldModule,
+		MatToolbarModule,
+		MatCardModule,
+		MatButtonModule,
+		MatSlideToggleModule,
+		MatProgressBarModule,
+		DirectivesModule,
+		MatIconModule,
+		FlexLayoutModule,
+		ComponentLibraryModule,
+		MatCheckboxModule,
+	],
+	declarations: [
+		LoginComponent,
+		RegisterComponent,
+		ForgotPasswordComponent,
+		LoginFormComponent,
+		LinksComponent,
+		SocialMediaComponent,
+		ForgetPasswordFormComponent,
+	],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AuthModule { }

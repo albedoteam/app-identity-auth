@@ -12,19 +12,19 @@ import { MatCardModule } from '@angular/material/card';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule,
-        MatToolbarModule,
-        MatButtonModule,
-        FlexLayoutModule,
-        MatIconModule,
-        DirectivesModule,
-        MatCardModule,
-        NgxSpinnerModule,
-    ],
-    declarations: [LayoutComponent],
-    exports: [LayoutComponent]
+	imports: [
+		CommonModule,
+		RouterModule,
+		MatToolbarModule,
+		MatButtonModule,
+		FlexLayoutModule,
+		MatIconModule,
+		DirectivesModule,
+		MatCardModule,
+		NgxSpinnerModule,
+	],
+	declarations: [LayoutComponent],
+	exports: [LayoutComponent]
 
 })
 export class LayoutModule { }

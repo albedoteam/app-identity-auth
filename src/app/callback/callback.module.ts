@@ -5,11 +5,11 @@ import { CallbackRoutingModule } from './callback.routing.module';
 import { ComponentLibraryModule } from '../component-library/component-library.module';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CallbackRoutingModule,
-        ComponentLibraryModule,
-    ],
-    declarations: [CallbackComponent],
+	imports: [
+		CommonModule,
+		CallbackRoutingModule,
+		ComponentLibraryModule,
+	],
+	declarations: [CallbackComponent],
 })
 export class CallbackModule { }
