@@ -13,7 +13,7 @@ import { LoadingEnum } from 'src/services/models/loading.enum';
 })
 export class ForgetPasswordFormComponent implements OnInit {
 
-	public loading_auth_login$!: Observable<boolean>;
+	public loading_auth_recover_password$!: Observable<boolean>;
 
 	public forgotMyPasswordForm!: FormGroup;
 
@@ -28,13 +28,13 @@ export class ForgetPasswordFormComponent implements OnInit {
 
 	ngOnInit() {
 
-		this.loading_auth_login$ = this.loadings.loadingAsync(LoadingEnum.auth_login);
+		this.loading_auth_recover_password$ = this.loadings.loadingAsync(LoadingEnum.auth_recover_password);
 
 		this.forgotMyPasswordForm = new FormGroup({
 			email: new FormControl('', [Validators.required, Validators.email])
 		});
 
-		this.loadingAuthSubscription = this.loading_auth_login$.subscribe(
+		this.loadingAuthSubscription = this.loading_auth_recover_password$.subscribe(
 			loading => {
 				if (loading) {
 					this.forgotMyPasswordForm.disable();

@@ -60,7 +60,7 @@ export class OktaService {
 				this.authorized(response, nonce)
 					.then(
 						() => {
-							this.loadings.loading(LoadingEnum.auth_login, false);
+							this.snackBars.openBottom('Usuário autenticado, preparando redirecionamento');
 						}
 					).catch(
 						() => {

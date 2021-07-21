@@ -26,22 +26,22 @@ export class AuthService {
 	}
 
 	public changePassword(email: string): void {
-		this.loadings.loading(LoadingEnum.auth_login, true);
+		this.loadings.loading(LoadingEnum.auth_recover_password, true);
 
 		let create: CreatePasswordRecoveryModel = {
 			accountId: this.identities.account$.getValue()!.id!,
 			userEmail: email,
 		};
 
-		this.loadings.loading(LoadingEnum.auth_login, true);
+		this.loadings.loading(LoadingEnum.auth_recover_password, true);
 		this.passwordRecoverys.create(create).subscribe(
 			create => {
-				this.router.navigate(['/auth', 'login']);
+				this.router.navigate(['/tokens', 'password-recovery']);
 				this.snackBars.openBottom('Caso o usuário esteja cadastrado, você receberá um e-mail com as instruções para recuperação de senha.');
-				this.loadings.loading(LoadingEnum.auth_login, false);
+				this.loadings.loading(LoadingEnum.auth_recover_password, false);
 			},
 			(error) => {
-				this.loadings.loading(LoadingEnum.auth_login, false);
+				this.loadings.loading(LoadingEnum.auth_recover_password, false);
 				this.snackBars.openBottom('Falha ao solicitar recuperação de senha.');
 			}
 		);
