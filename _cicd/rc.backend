@@ -1,0 +1,2 @@
+secret_suffix    = "rc-identity-auth-app"
+load_config_file = true
