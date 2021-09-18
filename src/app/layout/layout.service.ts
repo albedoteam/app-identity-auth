@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AccountService } from 'src/api/accounts/account.service';
-import { AccountModel } from 'src/api/accounts/models/account.model';
+import { AccountService } from 'src/services/accounts/account.service';
+import { AccountModel } from 'src/services/accounts/models/account.model';
+import { SessionService } from 'src/services/session.service';
 
 @Injectable({
-  providedIn: 'any'
+	providedIn: 'root'
 })
 export class LayoutService {
 
-  constructor(
-    private accounts: AccountService
-  ) {
+	public accountName$: Observable<string | null>;
 
-  }
-
-  public AccountAsync = (): Observable<AccountModel | null> => this.accounts.accountAsync();
+	constructor(
+		private sessions: SessionService,
+	) {
+		this.accountName$ = sessions.accountNameAsync();
+	}
 }

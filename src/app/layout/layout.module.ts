@@ -4,18 +4,27 @@ import { LayoutComponent } from './layout.component';
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { DirectivesModule } from '../directives/directives.module';
+import { MatCardModule } from '@angular/material/card';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    MatToolbarModule,
-    MatButtonModule,
-  ],
-  declarations: [LayoutComponent],
-  exports: [LayoutComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+	imports: [
+		CommonModule,
+		RouterModule,
+		MatToolbarModule,
+		MatButtonModule,
+		FlexLayoutModule,
+		MatIconModule,
+		DirectivesModule,
+		MatCardModule,
+		NgxSpinnerModule,
+	],
+	declarations: [LayoutComponent],
+	exports: [LayoutComponent]
 
 })
 export class LayoutModule { }

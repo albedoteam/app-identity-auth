@@ -9,22 +9,29 @@ import { LayoutModule } from './layout/layout.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ComponentLibraryModule } from './component-library/component-library.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    HttpClientModule,
-    CommonModule,
-    RouterModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    LayoutModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+	declarations: [
+		AppComponent,
+		PageNotFoundComponent
+	],
+	imports: [
+		HttpClientModule,
+		CommonModule,
+		RouterModule,
+		BrowserModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatSnackBarModule,
+		LayoutModule,
+		OAuthModule.forRoot(),
+		ComponentLibraryModule
+	],
+	bootstrap: [AppComponent],
+	schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

@@ -1,18 +1,37 @@
-<form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate>
-  <mat-form-field>
-    <mat-label>Usuário</mat-label>
-    <input formControlName="username" id="username" matInput type="text" required email />
-    <mat-error *ngIf="hasError('username', 'required')">O login é obrigatório</mat-error>
-    <mat-error *ngIf="hasError('username', 'email')">O login deve ser um e-mail válido</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Senha</mat-label>
-    <input formControlName="password" id="password" matInput type="password" minlength="1" maxlength="30" required />
-    <mat-error *ngIf="hasError('username', 'required')">A senha é obrigatória</mat-error>
-    <mat-error *ngIf="hasError('username', 'minLength')">O login deve ter mais que 6 caractéres</mat-error>
-    <mat-error *ngIf="hasError('username', 'maxLength')">O login deve ter menos de 30 caractéres</mat-error>
-  </mat-form-field>
-  <button mat-raised-button color="primary">
-    Login
-  </button>
+<form [formGroup]="authForm" class="auth" (submit)="login($event)" novalidate fxFill fxLayout="column"
+	fxLayoutAlign="start">
+	<mat-form-field appearance="outline">
+		<mat-label>Usuário</mat-label>
+		<input formControlName="username" id="username" matInput type="text" required email />
+		<button mat-icon-button disabled matSuffix>
+			<mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
+				person
+			</mat-icon>
+		</button>
+		<mat-error *ngIf="hasError('username', 'required')">O login é obrigatório</mat-error>
+		<mat-error *ngIf="hasError('username', 'email')">O login deve ser um e-mail válido</mat-error>
+	</mat-form-field>
+	<mat-form-field appearance="outline">
+		<mat-label>Senha</mat-label>
+		<input formControlName="password" #password id="password" matInput type="password" minlength="6" maxlength="30"
+			required />
+		<button type="button" mat-icon-button matSuffix
+			(click)="password.type = (password.type == 'password' ? 'text' : 'password')">
+			<mat-icon color="primary" [mat-lighter]="darkMode$ | async" matSuffix>
+				{{ password.type == 'password' ? 'visibility' : 'visibility_off' }}
+			</mat-icon>
+		</button>
+		<mat-error *ngIf="hasError('password', 'required')">A senha é obrigatória</mat-error>
+		<mat-error *ngIf="hasError('password', 'minlength')">A senha deve ter mais que 6 caractéres</mat-error>
+		<mat-error *ngIf="hasError('password', 'maxlength')">A senha deve ter menos de 30 caractéres</mat-error>
+	</mat-form-field>
+	<div fxFill class="remember-me">
+		<mat-checkbox color="primary" [mat-lighter]="darkMode$ | async" [mat-darker]="!(darkMode$ | async)"
+			formControlName="rememberMe" labelPosition="after">Lembre-se de mim</mat-checkbox>
+	</div>
+	<at-loading-spinner name="auth">
+		<button fxFill mat-raised-button color="primary" [disabled]="authForm.invalid || authForm.disabled">
+			Login
+		</button>
+	</at-loading-spinner>
 </form>

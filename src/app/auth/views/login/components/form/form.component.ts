@@ -1,77 +1,69 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OktaAuth } from "@okta/okta-auth-js"
-import { OAuthService } from 'angular-oauth2-oidc';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Observable, Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { DarkModeService } from 'src/services/dark-mode.service';
+import { LoadingService } from 'src/services/loading.service';
+import { LoadingEnum } from 'src/services/models/loading.enum';
 
 @Component({
-  selector: 'at-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.scss']
+	selector: 'at-login-form',
+	templateUrl: './form.component.html',
+	styleUrls: ['./form.component.scss']
 })
-export class FormComponent implements OnInit {
+export class LoginFormComponent implements OnInit {
 
-  public authForm: FormGroup;
+	public loading_auth_login$!: Observable<boolean>;
 
-  constructor(
-    private oAuthService: OAuthService,
-    private changeDetector: ChangeDetectorRef,
-  ) {
-    this.authForm = new FormGroup({
-      username: new FormControl('eryckson@albedo', [Validators.required, Validators.email]),
-      password: new FormControl('m@monas12', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
-    });
-  }
+	public authForm!: FormGroup;
 
-  ngOnInit() {
+	private loadingAuthSubscription!: Subscription;
 
-  }
+	public darkMode$!: Observable<boolean>;
 
-  public hasError = (controlName: string, errorName: string) => {
-    return this.authForm.controls[controlName].hasError(errorName);
-  }
+	constructor(
+		private darkMode: DarkModeService,
+		private loadings: LoadingService,
+		private authService: AuthService,
+		private spinners: NgxSpinnerService,
+	) {
+	}
 
-  public login = ($event: Event): void => {
-    $event.preventDefault();
-    this.oAuthService.createAndSaveNonce().then(
-      nonce => {
-        const authClient = new OktaAuth({
-          clientId: "0oa5dfhs0PSqvAMdx5d6",
-          authorizeUrl: `https://dev-83792757.okta.com/oauth2/default/v1/authorize`,
-          tokenUrl: `https://dev-83792757.okta.com/oauth2/default/v1/token`,
-          issuer: 'https://dev-83792757.okta.com/oauth2/default',
-        });
-        return authClient.signInWithCredentials({
-          username: this.authForm.controls["username"].value,
-          password: this.authForm.controls["password"].value,
-        }).then((response) => {
-          if (response.status === 'SUCCESS') {
-            return authClient.token.getWithoutPrompt({
-              clientId: "0oa5dfhs0PSqvAMdx5d6",
-              responseType: ['id_token', 'token', 'refresh_token'],
-              scopes: ['openid', 'profile', 'email'],
-              sessionToken: response.sessionToken,
-              nonce: nonce,
-              redirectUri: window.location.origin + '/callback'
-            })
-              .then((responseTokens) => {
-                console.log(responseTokens);
-                const idToken = responseTokens.tokens.idToken?.idToken;
-                const accessToken = responseTokens.tokens.accessToken?.accessToken;
-                const refreshToken = responseTokens.tokens.refreshToken?.refreshToken;
-                const keyValuePair = `id_token=${encodeURIComponent(idToken!)}&access_token=${encodeURIComponent(accessToken!)}&refresh_token=${encodeURIComponent(refreshToken!)}`;
-                this.oAuthService.tryLogin({
-                  customHashFragment: keyValuePair,
-                  disableOAuth2StateCheck: true,
-                }).then(() => {
-                  location.href = `http://localhost:4201/#${keyValuePair}`;
-                });
-              });
-          } else {
-            throw new Error('We cannot handle the ' + response.status + ' status');
-          }
-        }).catch((error) => {
-          console.error(error);
-        });
-      });
-  }
+	ngOnInit() {
+		this.loading_auth_login$ = this.loadings.loadingAsync(LoadingEnum.auth_login);
+
+		this.darkMode$ = this.darkMode.isDarkMode$;
+
+		const rememberMe: boolean = Boolean(localStorage.getItem('remember-me') || false);
+		const rememberMeEmail: string = localStorage.getItem('remember-me-email') || '';
+
+		this.authForm = new FormGroup({
+			username: new FormControl(rememberMeEmail, [Validators.required, Validators.email]),
+			password: new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(30)]),
+			rememberMe: new FormControl(rememberMe)
+		});
+
+		this.loadingAuthSubscription = this.loading_auth_login$.subscribe(
+			loading => {
+				if (loading) {
+					this.spinners.show('auth');
+					this.authForm.disable();
+				}
+				else {
+					this.spinners.hide('auth');
+					this.authForm.enable();
+				}
+			}
+		)
+	}
+
+	public hasError = (controlName: string, errorName: string) => {
+		return this.authForm.controls[controlName].hasError(errorName);
+	}
+
+	public login = ($event: Event): void => {
+		$event.preventDefault();
+		this.authService.login(this.authForm.value["username"], this.authForm.value["password"], this.authForm.value["rememberMe"]);
+	}
 }
