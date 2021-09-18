@@ -51,4 +51,4 @@ Thumbs.db
 .terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
-*.tfvars
+*secrets.tfvars
