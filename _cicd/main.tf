@@ -5,32 +5,19 @@ terraform {
       version = ">= 2.0.0"
     }
   }
-  backend "kubernetes" {
-    secret_suffix    = "identity-app-auth"
-    load_config_file = true
-  }
+  backend "kubernetes" {}
 }
 
 provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-// resource "kubernetes_secret" "identity" {
-//   metadata {
-//     name      = var.project_secrets_name
-//     namespace = var.namespace
-//   }
-//   data = {
-//     Broker_Host = var.settings_broker_connection_string
-//   }
-// }
-
 resource "kubernetes_deployment" "identity_app_auth" {
   metadata {
-    name      = var.project_name
+    name      = "${var.environment_prefix}${var.project_name}"
     namespace = var.namespace
     labels = {
-      app = var.project_label
+      app = "${var.environment_prefix}${var.project_label}"
     }
   }
 
@@ -38,13 +25,13 @@ resource "kubernetes_deployment" "identity_app_auth" {
     replicas = var.project_replicas_count
     selector {
       match_labels = {
-        app = var.project_name
+        app = "${var.environment_prefix}${var.project_name}"
       }
     }
     template {
       metadata {
         labels = {
-          app = var.project_name
+          app = "${var.environment_prefix}${var.project_name}"
         }
       }
       spec {
@@ -53,7 +40,7 @@ resource "kubernetes_deployment" "identity_app_auth" {
         }
         container {
           image             = "${var.do_registry_name}/${var.project_name}:${var.project_image_tag}"
-          name              = "${var.project_name}-container"
+          name              = "${var.environment_prefix}${var.project_name}-container"
           image_pull_policy = "Always"
           resources {
             limits = {
@@ -69,11 +56,6 @@ resource "kubernetes_deployment" "identity_app_auth" {
             container_port = 80
             protocol       = "TCP"
           }
-          //           env_from {
-          //             secret_ref {
-          //               name = var.project_secrets_name
-          //             }
-          //           }
         }
       }
     }
@@ -82,10 +64,10 @@ resource "kubernetes_deployment" "identity_app_auth" {
 
 resource "kubernetes_service" "identity_app_auth" {
   metadata {
-    name      = var.project_name
+    name      = "${var.environment_prefix}${var.project_name}"
     namespace = var.namespace
     labels = {
-      app = var.project_name
+      app = "${var.environment_prefix}${var.project_name}"
     }
   }
   spec {
