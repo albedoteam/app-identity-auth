@@ -112,6 +112,6 @@ export class OktaService {
 	private token(response: TokenResponse): void {
 		const accessToken = response.tokens.accessToken?.accessToken;
 
-		location.href = `${this.sessions.callbackUrl() || ''}?auth=${accessToken}&darkMode=${this.darkMode.isDarkMode$.getValue()}`;
+		location.href = `${this.sessions.callbackUrl() || ''}?auth=${accessToken}&darkMode=${this.darkMode.isDarkMode$.getValue()}&${this.sessions.urlSearch()}`;
 	}
 }
