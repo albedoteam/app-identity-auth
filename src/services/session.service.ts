@@ -55,7 +55,8 @@ export class SessionService {
 
 	public accountId = (): string | null => this.accountIdSubject.getValue();
 	public accountName = (): string | null => this.accountNameSubject.getValue();
-	public callbackUrl = (): string | null => this.callbackUrlSubject.getValue();
+	public callbackUrl = (): string | null => this.callbackUrlSubject.getValue()?.split('?')[0] || null;
+	public urlSearch = (): string | null => this.callbackUrlSubject.getValue()?.split('?')[1] || null;
 
 	public setAccountId(account: string | null): void {
 		this.accountIdSubject.next(account);
